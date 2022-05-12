@@ -6,6 +6,7 @@
 
 #include "Node.h"
 
+using namespace std;
 
 int const L = 10;
 
@@ -63,9 +64,9 @@ void printMap(int *mappa){
 
     for (int a = 0; a < L; a ++){
         for(int b = 0; b < L; b++){
-            std::cout << *((mappa+a*L)+b) << " ";
+            cout << *((mappa+a*L)+b) << " ";
         }
-        std::cout << std::endl;
+        cout << std::endl;
     }
 }
 

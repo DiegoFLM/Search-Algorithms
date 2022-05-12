@@ -63,5 +63,5 @@ class Node {
         
 };
 #else
-class Individuo;
+class Node;
 #endif
