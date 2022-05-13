@@ -3,53 +3,26 @@
 #include "Node.h"
 
 
-/*¿Cómo inicializar un int array a partir de un puntero a int array?*/
-//Constructor
+//constructor
 
-/*Node::Node(int* robotsPos [2], Node * fatherReff, int fuel1, int fuel2, 
-        bool* fItems [2], bool * drivingShip[2]): father(fatherReff), 
-        robotsPosition({(*robotsPos)[0], (*robotsPos)[1]}),
-        shipFuel1(fuel1), shipFuel2(fuel2){
-    foundItems[0] = (*fItems)[0];
-    foundItems[1] = (*fItems)[1];
-    usingShip[0] = (*drivingShip)[0];
-    usingShip[1] = (*drivingShip)[1]; 
+Node::Node(int _robotsPosition[2], int _shipsFuel[2]){}
+
+
+int Node::map [10][10];
+
+void Node::setMap(int _map[10][10]){
+    for (int r = 0; r < 10; r++){
+        for (int c = 0; c < 10; c++){
+            Node::map[r][c] = _map[r][c];
+        }
+    }
+    /*int g = 0;
+    map[0][0] = 2;*/
 }
 
-Node::Node(int robotsPos[2], int fuel1, int fuel2, 
-        bool fItems[2], bool drivingShip[2]): 
-        robotsPosition({robotsPos[0], robotsPos[1]}),
-        shipFuel1(fuel1), shipFuel2(fuel2){
-    foundItems[0] = fItems[0];
-    foundItems[1] = fItems[1];
-    usingShip[0] = drivingShip[0];
-    usingShip[1] = drivingShip[1]; 
-}*/
-/*
-Node::Node(int* robotsPos, int fuel1, int fuel2, 
-        bool* fItems, bool * drivingShip):  
-        shipFuel1(fuel1), shipFuel2(fuel2){
-    robotsPosition[0] = *(robotsPos);
-    robotsPosition[1] = *(robotsPos+1);
-    foundItems[0] = *fItems;
-    foundItems[1] = *(fItems+1);
-    usingShip[0] = *drivingShip;
-    usingShip[1] = *(drivingShip+1); 
-}*/
-
-
-/*Node::Node(std::vector <int> robotPos){
-    //robotPositionVec = robotPos;
-}*/
-Node::Node(int rowRobotP, int columnRobotP):rowRobot(rowRobotP), 
-columnRobot(columnRobotP){}
-
-/*Node (position robotsPos){
-
-}*/
 
 bool Node::goalReached(){
-    if (foundItems[0] && foundItems[1]) return true;
+    //if (foundItems[0] && foundItems[1]) return true;
     return false;
 }
 
@@ -76,21 +49,21 @@ bool Node::goalReached(){
 
 }*/
 
-/*void Node::setMap(int *mappa){
-    Node::map = mappa;
-}
+
 
 void Node::testMap(){
     for (int a = 0; a < 10; a ++){
         for(int b = 0; b < 10; b++){
-            std::cout << *(((Node::map)+a*10)+b) << " ";
+            std::cout << Node::map[a][b] << " ";
         }
         std::cout << std::endl;
     }
-}*/
+}
+
 
 bool Node::isPossible(int op){
-    std::cout << *((Node::map+2*10)+1);
+    //std::cout << *((Node::map+2*10)+1);
+    return true;
 }
 
 
