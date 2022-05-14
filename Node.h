@@ -21,25 +21,26 @@ class Node {
 
         static int map[10][10];
 
+        static int itemPositions[2][2];
 
-        std::vector<std::vector<int>> knownBoxes;   
+        //std::vector<std::vector<int>> knownBoxes;   
 
 
     public:
         
-        Node(int robotsPosition[2], int shipsFuel[2]);
+        Node(Node * father, int robotsPosition[2], int shipsFuel[2], bool foundItems[2],
+            bool usingShip[2]);
 
         bool goalReached();
 
+        void setMap(int map[10][10]);
+        void showMap();
+        
+        bool isPossible(int movement);
+
+
         //Node* move (int op);
 
-        //Revisar: Los atts no deben ser publicc.
-
-        void setMap(int map[10][10]);
-        //void setMap(int *mappa);
-        void testMap();
-        
-        bool isPossible(int op);
         
         
 };
