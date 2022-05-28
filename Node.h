@@ -9,10 +9,14 @@ email: diego.ledesma@correounivalle.edu.co
 #define NODE_HH
 
 #include <vector>
+//#include "string.h"
 
 class Node {
     private:
         Node * father;
+        int motherOp;
+        int depth;
+        int cost;
 
         int robotsPosition [2];
         int shipsFuel[2];
@@ -20,16 +24,21 @@ class Node {
         bool usingShip [2];
 
         static int map[10][10];
-
         static int itemPositions[2][2];
+        static int costsArray[7];
 
-        //std::vector<std::vector<int>> knownBoxes;   
+        static int MaxDeepth; //pending
+   
+    public:     
+        Node(Node * father, int motherOp, int depth, int cost, int robotsPosition[2], 
+            int shipsFuel[2], bool foundItems[2], bool usingShip[2]);
 
+        Node* getFather();
+        int getMotherOp();
+        int getDepth();
+        int getCost();
 
-    public:
-        
-        Node(Node * father, int robotsPosition[2], int shipsFuel[2], bool foundItems[2],
-            bool usingShip[2]);
+        void showValues();
 
         bool goalReached();
 
@@ -38,12 +47,9 @@ class Node {
         
         bool isPossible(int movement);
 
-
-        //Node* move (int op);
-
-        
-        
+        Node* partialExpansion (int op);
 };
+
 #else
 class Node;
 #endif

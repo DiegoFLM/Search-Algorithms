@@ -5,23 +5,58 @@
 
 //constructor
 
-Node::Node(Node * _father, int _robotsPosition[2], int _shipsFuel[2], bool _foundItems[2],
-            bool _usingShip[2]):
+Node::Node(Node * _father, int _motherOp, int _depth, int _cost, int _robotsPosition[2], 
+            int _shipsFuel[2], bool _foundItems[2], bool _usingShip[2]):
+            father(_father), motherOp(_motherOp), depth(_depth), cost(_cost),
             robotsPosition({_robotsPosition[0], _robotsPosition[1]}),
             shipsFuel({_shipsFuel[0], _shipsFuel[1]}),
             foundItems({_foundItems[0], _foundItems[1]}), 
             usingShip({_usingShip[0], _usingShip[1]}) {
-                
             }
-
 
 int Node::map [10][10];
 int Node::itemPositions [2][2];
+int Node::costsArray[7];
+
+Node* Node::getFather(){
+    return father;
+}
+
+int Node::getMotherOp(){
+    return motherOp;
+}
+
+int Node::getDepth() {
+    return depth;
+} 
+
+int Node::getCost() {
+    return cost;
+} 
+
+void Node::showValues(){
+    std::cout << "motherOp: " << motherOp << std::endl;
+    std::cout << "depth: " << depth << std::endl;
+    std::cout << "cost: " << cost << std::endl;
+    std::cout << "robotsPosition[0]: " << robotsPosition[0] << std::endl;
+    std::cout << "robotsPosition[1]: " << robotsPosition[1] << std::endl;
+    std::cout << "shipsFuel[0]: " << shipsFuel[0] << std::endl;
+    std::cout << "shipsFuel[1]: " << shipsFuel[1] << std::endl;
+    std::cout << "foundItems[0]: " << foundItems[0] << std::endl;
+    std::cout << "foundItems[1]: " << foundItems[1] << std::endl;
+    std::cout << "usingShip[0]: " << usingShip[0] << std::endl;
+    std::cout << "usingShip[1]: " << usingShip[1] << std::endl;
+    std::cout << "itemPositions[0][0]: " << itemPositions[0][0] << std::endl;
+    std::cout << "itemPositions[0][1]: " << itemPositions[0][1] << std::endl;
+    std::cout << "itemPositions[1][0]: " << itemPositions[1][0] << std::endl;
+    std::cout << "itemPositions[1][1]: " << itemPositions[1][1] << std::endl;
+
+}
 
 void Node::setMap(int _map[10][10]){
     for (int r = 0; r < 10; r++){
         for (int c = 0; c < 10; c++){
-            Node::map[r][c] = _map[r][c];
+            map[r][c] = _map[r][c];
         }
     }
 
@@ -33,10 +68,19 @@ void Node::setMap(int _map[10][10]){
                 itemPositions[item][0] = r;
                 itemPositions[item][1] = c;
                 item++;
+
             }
         }
     }
     
+    //costs
+    costsArray[0]= 1;   //Free block
+    costsArray[1]= 1000;//Obstacle
+    costsArray[2]= 1;   //Initial position of the robot.
+    costsArray[3]= 1;   
+    costsArray[4]= 1;
+    costsArray[5]= 1;
+    costsArray[6]= 4;   //Unless a ship is being used.
 }
 
 
@@ -122,23 +166,78 @@ bool Node::isPossible(int movement){
 1 := left
 2 := down
 3 := right*/
-/*Node* Node::move (int op){
+Node* Node::partialExpansion (int op){
+    int sonsModerOp = op;
+    int sonsDepth = depth + 1;
+
+
+    int sonsCost;
+
+    int sonsRobotsPosition [2];
+    int sonsShipsFuel [2];
+    bool sonsFoundItems [2];
+    bool sonsUsingShip [2];
+
+
     switch(op){
-        case 0:
-            robotsPosition[0] += 1;
+        case 0: //Up
+            sonsRobotsPosition[0] = robotsPosition[0] + 1;
+            sonsRobotsPosition[1] = robotsPosition[1];
             break;
-        case 1:
-            robotsPosition[1] += -1;
+        case 1: //Left
+            sonsRobotsPosition[1] = robotsPosition[1] -1;
+            sonsRobotsPosition[0] = robotsPosition[0];
             break;
-        case 2:
-            robotsPosition[0] += -1;
+        case 2: //Down
+            sonsRobotsPosition[0] = robotsPosition[0] + -1;
+            sonsRobotsPosition[1] = robotsPosition[1];
             break;           
-        case 3:
-            robotsPosition[1] += 1;
+        case 3: //Right
+            sonsRobotsPosition[1] = robotsPosition[1] + 1;
+            sonsRobotsPosition[0] = robotsPosition[0];
             break;
     }
 
-}*/
+    if (usingShip[0] || usingShip[1]){
+        sonsCost = cost + 1;
+    }else{
+        sonsCost = cost + costsArray[map[sonsRobotsPosition[0]][sonsRobotsPosition[1]]];
+    }
+
+    if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 3){
+        sonsUsingShip[0] = true;
+    }else if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 4){
+        sonsUsingShip[1] = true;
+    }
+
+    if (sonsRobotsPosition[0] == itemPositions[0][0] 
+        && sonsRobotsPosition[1] == itemPositions[0][1]){
+        sonsFoundItems[0] = true;
+    }else if (sonsRobotsPosition[0] == itemPositions[1][0] 
+        && sonsRobotsPosition[1] == itemPositions[1][1]){
+        sonsFoundItems[1] = true;
+    }
+
+    //sonsShipsFuel [2]; sonsUsingShip[2]
+    if (usingShip[0]){
+        sonsShipsFuel[0] = shipsFuel[0] - 1;
+        if (sonsShipsFuel[0] == 0){
+            sonsUsingShip[0] = false;
+        }
+    }
+    if (sonsUsingShip[1]){
+        sonsShipsFuel[1] = shipsFuel[1] - 1;
+        if (sonsShipsFuel[1] == 0){
+            sonsUsingShip[1] = false;
+        }
+    }
+
+}
+
+
+
+
+
 
 
 
