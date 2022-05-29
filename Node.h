@@ -47,7 +47,7 @@ class Node {
         
         bool isPossible(int movement);
 
-        Node* partialExpansion (int op);
+        Node partialExpansion (int op);
 };
 
 #else

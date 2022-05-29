@@ -11,6 +11,16 @@ int const L = 10;
 /*¿Es válido poner un 0 en la posición inicial 
 y usar el 2 para representar la posición actual del robot?  */
 
+/*
+0 si es una casilla libre
+1 si es un muro
+2 si el punto de inicio
+3 si es la nave 1
+4 si es la nave 2
+5 si es un ítem
+6 si es una casilla con aceite
+*/
+
 int map[L][L] ={{0, 0, 0, 0, 0, 5, 1, 1, 4, 0},
                 {0, 1, 1, 1, 1, 0, 1, 1, 1, 0},
                 {0, 0, 0, 6, 6, 0, 0, 0, 0, 0},
@@ -52,7 +62,7 @@ int main() {
 
     nod.setMap(map);
     nod.showMap();
-    nod.showValues();
+    //nod.showValues();
 
     /*if (!nod.isPossible(2)){
         std::cout <<"Not possible"<< std::endl;  
@@ -60,10 +70,21 @@ int main() {
         std::cout <<"Possible"<< std::endl;
     }*/
 
+    std::cout << std::endl << std::endl;
+
+    //Node nod2(&nod, 3, 1, 1, initialRobotPosition, shipsFuel, foundItems, drivingShip);
 
 
-    Node nod2(&nod, 3, 1, 1, initialRobotPosition, shipsFuel, foundItems, drivingShip);
+    /*movement number: 
+    0 := up
+    1 := left
+    2 := down
+    3 := right*/
+    std::cout << "nos.ispossible(int op):  " << nod.isPossible(3) << std::endl << std::endl;
 
+    //Node node2;
+    Node node2 = nod.partialExpansion(1);
+    node2.showValues();
 }
 
 

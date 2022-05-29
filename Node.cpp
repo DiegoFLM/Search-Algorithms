@@ -166,10 +166,9 @@ bool Node::isPossible(int movement){
 1 := left
 2 := down
 3 := right*/
-Node* Node::partialExpansion (int op){
+Node Node::partialExpansion (int op){
     int sonsModerOp = op;
     int sonsDepth = depth + 1;
-
 
     int sonsCost;
 
@@ -198,18 +197,23 @@ Node* Node::partialExpansion (int op){
             break;
     }
 
+    //sonsCost if using (or not) ship and stepping into oil:
     if (usingShip[0] || usingShip[1]){
         sonsCost = cost + 1;
     }else{
         sonsCost = cost + costsArray[map[sonsRobotsPosition[0]][sonsRobotsPosition[1]]];
     }
 
+    //Getting a ship?
     if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 3){
         sonsUsingShip[0] = true;
     }else if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 4){
         sonsUsingShip[1] = true;
     }
 
+    //sonsFoundItems:
+    sonsFoundItems[0] = foundItems[0];
+    sonsFoundItems[1] = foundItems[1];
     if (sonsRobotsPosition[0] == itemPositions[0][0] 
         && sonsRobotsPosition[1] == itemPositions[0][1]){
         sonsFoundItems[0] = true;
@@ -219,18 +223,32 @@ Node* Node::partialExpansion (int op){
     }
 
     //sonsShipsFuel [2]; sonsUsingShip[2]
+    sonsShipsFuel[0] = shipsFuel[0];
+    sonsShipsFuel[1] = shipsFuel[1];
+    sonsUsingShip[0] = usingShip[0];
+    sonsUsingShip[1] = usingShip[1];
+
     if (usingShip[0]){
         sonsShipsFuel[0] = shipsFuel[0] - 1;
         if (sonsShipsFuel[0] == 0){
             sonsUsingShip[0] = false;
         }
     }
-    if (sonsUsingShip[1]){
+    if (usingShip[1]){
         sonsShipsFuel[1] = shipsFuel[1] - 1;
         if (sonsShipsFuel[1] == 0){
             sonsUsingShip[1] = false;
         }
     }
+
+    this->isPossible(2);
+    Node * son;
+    Node object(this, op, sonsDepth, sonsCost, sonsRobotsPosition, 
+            sonsShipsFuel, sonsFoundItems, sonsUsingShip);
+    son =  &object;
+
+    //return (Node *) &object;
+    return object;
 
 }
 
