@@ -4,33 +4,35 @@
 
 
 //constructor
-Handler::Handler(Node * _rootNode): rootNode(_rootNode){
+Handler::Handler(Node _rootNode): rootNode(_rootNode){
     l.push_front(rootNode);
     victory = false;
 }
 
 
-bool Handler::expansion0(Node * _node){
+bool Handler::expansion0(Node _node){
     
-    if (_node->goalReached()){
+    if (_node.goalReached()){
         victory = true;
         std::cout << "GOAL REACHED!" << std::endl;
         return victory;
     }
 
     for(int direction = 0; direction < 4; direction++){
-        if (_node->isPossible(direction)){
-            Node copy = _node->partialExpansion(direction);
-            l.push_back(&copy);
+        std::cout << _node.isPossible(direction) << std::endl;
+        if (_node.isPossible(direction)){
+            //Node copy = _node->partialExpansion(direction);
+            l.push_back((_node.partialExpansion(direction)));
 
             std::cout << std::endl << "FOR CYCLE EXPANSION0()" << std::endl;
-            copy.showValues();
+            //copy.showValues();
             std::cout << std::endl << std::endl;
         }
         std::cout << "********************" << std::endl;
     }
     
-    l.remove(_node);
+//    l.remove(_node);
+    l.pop_front();
     std::cout << l.size() << std::endl;
 
     return victory;
@@ -63,13 +65,16 @@ void Handler::breadthFirstSearch(){
         numberOfExpansions++;
         std::cout << numberOfExpansions << std::endl;
     }*/
-    l.front()->showValues();
+    l.front().showValues();
     std::cout << "********************" << std::endl;
     expansion0(l.front());
-    l.front()->showValues();
+    l.front().showValues();
     std::cout << "********************" << std::endl;
     expansion0(l.front());
-    l.front()->showValues();
+    l.front().showValues();
+    std::cout << "********************" << std::endl;
+    expansion0(l.front());
+    l.front().showValues();
     std::cout << "********************" << std::endl;
     std::cout << l.size() << std::endl;
 }
