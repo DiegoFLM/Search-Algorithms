@@ -8,8 +8,6 @@ email: diego.ledesma@correounivalle.edu.co
 #ifndef NODE_HH
 #define NODE_HH
 
-#include <vector>
-//#include "string.h"
 
 class Node {
     private:
@@ -32,6 +30,8 @@ class Node {
     public:     
         Node(Node * father, int motherOp, int depth, int cost, int robotsPosition[2], 
             int shipsFuel[2], bool foundItems[2], bool usingShip[2]);
+
+        
 
         Node* getFather();
         int getMotherOp();

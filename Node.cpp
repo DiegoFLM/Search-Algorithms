@@ -180,20 +180,20 @@ Node Node::partialExpansion (int op){
 
     switch(op){
         case 0: //Up
-            sonsRobotsPosition[0] = robotsPosition[0] + 1;
+            sonsRobotsPosition[0] = robotsPosition[0] - 1;
             sonsRobotsPosition[1] = robotsPosition[1];
             break;
         case 1: //Left
-            sonsRobotsPosition[1] = robotsPosition[1] -1;
             sonsRobotsPosition[0] = robotsPosition[0];
+            sonsRobotsPosition[1] = robotsPosition[1] - 1;
             break;
         case 2: //Down
-            sonsRobotsPosition[0] = robotsPosition[0] + -1;
+            sonsRobotsPosition[0] = robotsPosition[0] + 1;
             sonsRobotsPosition[1] = robotsPosition[1];
             break;           
         case 3: //Right
-            sonsRobotsPosition[1] = robotsPosition[1] + 1;
             sonsRobotsPosition[0] = robotsPosition[0];
+            sonsRobotsPosition[1] = robotsPosition[1] + 1;
             break;
     }
 
