@@ -12,15 +12,13 @@ Node::Node(Node * _father, int _motherOp, int _depth, int _cost, int _robotsPosi
             shipsFuel({_shipsFuel[0], _shipsFuel[1]}),
             foundItems({_foundItems[0], _foundItems[1]}), 
             usingShip({_usingShip[0], _usingShip[1]}) {
-                //.push_back(*this);
-                //autoRef = &(nodeRegistry.back());
+                
             }
 
 int Node::map [10][10];
 int Node::itemPositions [2][2];
 int Node::costsArray[7];
 
-//int Node::tPosition[2];
 bool Node::tFoundItems[2];
 
 Node* Node::getFather(){
@@ -123,7 +121,6 @@ void Node::showMap(){
 2 := down
 3 := right*/
 bool Node::isPossible(int movement){
-    //std::cout << "ENTERED NODE::ISPOSSIBLE()" << std::endl;
     switch(movement){
         case 0: //up
             if(robotsPosition[0] == 0){
@@ -247,28 +244,12 @@ Node Node::partialExpansion (int op){
         }
     }
 
-    //this->isPossible(2);
-    Node * son;
     Node object(this, op, sonsDepth, sonsCost, sonsRobotsPosition, 
             sonsShipsFuel, sonsFoundItems, sonsUsingShip);
-    son =  &object;
 
-    //return (Node *) &object;
     return object;
-
 }
 
-/*
-void Node::setTPosition(){
-    
-    tPosition[0] = robotsPosition[0];
-    tPosition[1] = robotsPosition[1];
-    std::cout << "in setTPosition: tPosition[0] = " << tPosition[0] << std::endl;
-    std::cout << "in setTPosition: tPosition[1] = " << tPosition[1] << std::endl;
-    std::cout << "in setTPosition: robotsPosition[0] = " << robotsPosition[0] << std::endl;
-    std::cout << "in setTPosition: robotsPosition[1] = " << robotsPosition[1] << std::endl;
-    
-}*/
         
 
 bool* Node::getFoundItems(){
@@ -277,8 +258,6 @@ bool* Node::getFoundItems(){
     tFoundItems[1] = foundItems[1];
     return tFoundItems;
 }
-
-
 
 
 
@@ -298,31 +277,41 @@ int Node::getPosition1(){
     return robotsPosition[1];
 }
 
+bool Node::getFoundItems0(){
+    return foundItems[0];
+}
+
+bool Node::getFoundItems1(){
+    return foundItems[1];
+}
 
 
 /*if node robots are in the same position, and have found the same item, none or both, they're 
 equivState0   */   
 bool Node::equivState0 (Node *_node2){
-    _node2->showValues();
+    //_node2->showValues();
     
     //std::cout << "robotsPosition[0] = " << robotsPosition[0] << std::endl;
     //if (  robotsPosition[0] == _node2.getPosition()[0]
     /*&&  robotsPosition[1] == _node2.getPosition()[1]
     &&  foundItems[0] == _node2.getFoundItems()[0]
     &&  foundItems[1] == _node2.getFoundItems()[1] */ 
-    if (  robotsPosition[0] == _node2->getPosition0()){
-        std::cout << "robotsPosition[0] = " << robotsPosition[0] << std::endl;
+    if (  robotsPosition[0] == _node2->getPosition0()
+            &&  robotsPosition[1] == _node2->getPosition1()
+            &&  foundItems[0] == _node2->getFoundItems0()
+            &&  foundItems[1] == _node2->getFoundItems1()){
+        /*std::cout << "robotsPosition[0] = " << robotsPosition[0] << std::endl;
         std::cout << "_node2->getPosition0() = " << _node2->getPosition0() << std::endl;
         std::cout << "robotsPosition[1] = " << robotsPosition[1] << std::endl;
-        std::cout << "_node2->getPosition1() = " << _node2->getPosition1() << std::endl;
+        std::cout << "_node2->getPosition1() = " << _node2->getPosition1() << std::endl;*/
         std::cout << "Estamos true" << std::endl;
         
         return true;
     }else {
-        std::cout << "robotsPosition[0] = " << robotsPosition[0] << std::endl;
+        /*std::cout << "robotsPosition[0] = " << robotsPosition[0] << std::endl;
         std::cout << "_node2->getPosition0() = " << _node2->getPosition0() << std::endl;
         std::cout << "robotsPosition[1] = " << robotsPosition[1] << std::endl;
-        std::cout << "_node2->getPosition1() = " << _node2->getPosition1() << std::endl;
+        std::cout << "_node2->getPosition1() = " << _node2->getPosition1() << std::endl;*/
         std::cout << "Estamos false" << std::endl;
         return false;
     }

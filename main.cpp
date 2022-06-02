@@ -77,8 +77,8 @@ int main() {
     Handler hand = Handler(nod);
     //nod.equivState0(&nod);
     //hand.expansion0(hand.getFront());
-    hand.expansion0(&nod);
-    //hand.breadthFirstSearch();
+    //hand.expansion0(&nod);
+    hand.breadthFirstSearch();
     
 }
 

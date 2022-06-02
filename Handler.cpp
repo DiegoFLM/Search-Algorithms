@@ -6,21 +6,13 @@
 //constructor
 Handler::Handler(Node _rootNode): rootNode(_rootNode){
     std::list <Node> nodeRegistry;
-    //Node rooooot = _rootNode;
-    //rootNode = _rootNode;
     Node nod555 = _rootNode;
     nodeRegistry.push_back(_rootNode);
-    //nodeRegistry.back().setTPosition();
-    std::cout << "rootNode: robotsPosition[0] = " << nodeRegistry.back().getPosition0() << std::endl;
+    //std::cout << "rootNode: robotsPosition[0] = " << nodeRegistry.back().getPosition0() << std::endl;
     l.push_front(&nodeRegistry.back());
     victory = false;
     
     nodeRegistry.back().setAutoRef(&(nodeRegistry.back()));
-
-
-    //nodeRegistry.back().getAutoRef()->showValues();
-    //nodeRegistry.back().equivState0(nodeRegistry.back().getAutoRef());
-    //nodeRegistry.back().getAutoRef()->equivState0(nodeRegistry.back().getAutoRef());
 }
 
 
@@ -32,37 +24,32 @@ bool Handler::expansion0(Node* _node){
         return victory;
     }
     
-    if (_node->equivState0(_node->getAutoRef())) {
-        std::cout << "FUCKING WORKING EQUIVSTATE0!!!" << std::endl;
-        //continue;   tPosition
-        }
+    
 
     for(int direction = 0; direction < 4; direction++){
         std::cout << _node->isPossible(direction) << std::endl;
 
-        //Node iAmYourFather = *(_node.getFather());
-        //if (_node.getFather()->equivState0(_node)) continue;
-        /*if (_node.equivState0(*(_node.getAutoRef()))) {
-            std::cout << "FUCKING WORKING EQUIVSTATE0!!!" << std::endl;
-            continue;   
-        }*/
+        if (_node->getDepth() > 1){
+            if (_node->equivState0(_node->getFather()->getFather())) {
+                std::cout << "FUCKING WORKING EQUIVSTATE0. GRAND FATHER DETECTED!!!" << std::endl;
+                continue;   
+            }
+        }
+        
 
         if (_node->isPossible(direction)){
-            //Node copy = _node->partialExpansion(direction);
             nodeRegistry.push_back((_node->partialExpansion(direction)));
             l.push_back(&(nodeRegistry.back()));
-            nodeRegistry.back().setAutoRef(&(nodeRegistry.back()));
+
             std::cout << std::endl << "FOR CYCLE EXPANSION0()" << std::endl;
-            //copy.showValues();
             std::cout << std::endl << std::endl;
         }
         std::cout << "********************" << std::endl;
     }
-    _node->equivState0(_node->getAutoRef());
+    std::cout << "depth:    " << nodeRegistry.back().getDepth() << std::endl;
     
-//    l.remove(_node);
     l.pop_front();
-    std::cout << l.size() << std::endl;
+    std::cout << "l.size():     " << l.size() << std::endl;
 
     return victory;
 }
@@ -95,28 +82,28 @@ void Handler::breadthFirstSearch(){
         std::cout << "GOAL REACHED!" << std::endl;
         return;
     }else victory = false;
-/*
+
     while(!victory //&& (numberOfExpansions != 3)
     ){
         expansion0(l.front());
         numberOfExpansions++;
-        std::cout << numberOfExpansions << std::endl;
-    }*/
+        std::cout << "Number of expansions: " << numberOfExpansions << std::endl;
+    }
     
+    //l.front()->showValues();
+    /*std::cout << "********************" << std::endl;
+    expansion0(l.front());
+    l.front()->showValues();
+    
+    std::cout << "********************" << std::endl;
+    expansion0(l.front());
     l.front()->showValues();
     std::cout << "********************" << std::endl;
     expansion0(l.front());
-    l.front()->showValues();
-    /*
-    std::cout << "********************" << std::endl;
-    expansion0(l.front());
-    l.front().showValues();
-    std::cout << "********************" << std::endl;
-    expansion0(l.front());
     
-    l.front().showValues();*/
+    l.front()->showValues();
     std::cout << "********************" << std::endl;
-    std::cout << l.size() << std::endl;
+    std::cout << l.size() << std::endl;*/
 }
 
 
