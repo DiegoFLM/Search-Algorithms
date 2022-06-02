@@ -4,6 +4,7 @@
 
 
 //constructor
+std::list <Node> nodeRegistry;
 
 Node::Node(Node * _father, int _motherOp, int _depth, int _cost, int _robotsPosition[2], 
             int _shipsFuel[2], bool _foundItems[2], bool _usingShip[2]):
@@ -12,11 +13,16 @@ Node::Node(Node * _father, int _motherOp, int _depth, int _cost, int _robotsPosi
             shipsFuel({_shipsFuel[0], _shipsFuel[1]}),
             foundItems({_foundItems[0], _foundItems[1]}), 
             usingShip({_usingShip[0], _usingShip[1]}) {
+                //.push_back(*this);
+                //autoRef = &(nodeRegistry.back());
             }
 
 int Node::map [10][10];
 int Node::itemPositions [2][2];
 int Node::costsArray[7];
+
+int Node::tPosition[2];
+bool Node::tFoundItems[2];
 
 Node* Node::getFather(){
     return father;
@@ -118,6 +124,7 @@ void Node::showMap(){
 2 := down
 3 := right*/
 bool Node::isPossible(int movement){
+    //std::cout << "ENTERED NODE::ISPOSSIBLE()" << std::endl;
     switch(movement){
         case 0: //up
             if(robotsPosition[0] == 0){
@@ -241,7 +248,7 @@ Node Node::partialExpansion (int op){
         }
     }
 
-    this->isPossible(2);
+    //this->isPossible(2);
     Node * son;
     Node object(this, op, sonsDepth, sonsCost, sonsRobotsPosition, 
             sonsShipsFuel, sonsFoundItems, sonsUsingShip);
@@ -253,9 +260,60 @@ Node Node::partialExpansion (int op){
 }
 
 
+void Node::getPosition(){
+    
+    tPosition[0] = robotsPosition[0];
+    tPosition[1] = robotsPosition[1];
+    std::cout << "in getPosition: tPosition[0] = " << tPosition[0] << std::endl;
+    std::cout << "in getPosition: tPosition[1] = " << tPosition[1] << std::endl;
+    std::cout << "in getPosition: robotsPosition[0] = " << robotsPosition[0] << std::endl;
+    std::cout << "in getPosition: robotsPosition[1] = " << robotsPosition[1] << std::endl;
+    
+    //return tPosition;
+}
+        
+
+bool* Node::getFoundItems(){
+    
+    tFoundItems[0] = foundItems[0];
+    tFoundItems[1] = foundItems[1];
+    return tFoundItems;
+}
 
 
+/*if node robots are in the same position, and have found the same item, none or both, they're 
+equivState0   */   
+bool Node::equivState0 (Node _node2){
+    _node2.getPosition();
+    
+    //std::cout << "robotsPosition[0] = " << robotsPosition[0] << std::endl;
+    //if (  robotsPosition[0] == _node2.getPosition()[0]
+    /*&&  robotsPosition[1] == _node2.getPosition()[1]
+    &&  foundItems[0] == _node2.getFoundItems()[0]
+    &&  foundItems[1] == _node2.getFoundItems()[1] */ 
+    if (  robotsPosition[0] == tPosition[0]){
+        std::cout << "robotsPosition[0] = " << robotsPosition[0] << std::endl;
+        std::cout << "robotsPosition[1] = " << robotsPosition[1] << std::endl;
+        std::cout << "Estamos true" << std::endl;
+        
+        return true;
+    }else {
+        std::cout << "robotsPosition[0] = " << robotsPosition[0] << std::endl;
+        std::cout << "robotsPosition[1] = " << robotsPosition[1] << std::endl;
+        std::cout << "tPosition[0] = " << tPosition[0] << std::endl;
+        std::cout << "tPosition[1] = " << tPosition[1] << std::endl;
+        std::cout << "Estamos false" << std::endl;
+        return false;
+    }
+}
 
 
+void Node::setAutoRef(Node* ref){
+    autoRef = ref;
+}
+
+Node* Node::getAutoRef(){
+    return autoRef;
+}
 
 

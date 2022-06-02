@@ -16,8 +16,10 @@ email: diego.ledesma@correounivalle.edu.co
 class Handler{
     private:
         Node rootNode;
-        std::list <Node > l;
+        std::list <Node> l;
         bool victory;
+        
+        std::list <Node> nodeRegistry;
 
 
     public:
