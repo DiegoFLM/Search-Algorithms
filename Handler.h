@@ -31,6 +31,7 @@ class Handler{
         void depthFirstSearch();
         void greedySearch(); //best-first search
         void aAsteriscSearch();
+        Node* getFront();
 };
 
 #else

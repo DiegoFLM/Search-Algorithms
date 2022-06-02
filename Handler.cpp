@@ -9,13 +9,18 @@ Handler::Handler(Node _rootNode): rootNode(_rootNode){
     //Node rooooot = _rootNode;
     //rootNode = _rootNode;
     Node nod555 = _rootNode;
-    nodeRegistry.push_back(nod555);
+    nodeRegistry.push_back(_rootNode);
     //nodeRegistry.back().setTPosition();
     std::cout << "rootNode: robotsPosition[0] = " << nodeRegistry.back().getPosition0() << std::endl;
     l.push_front(&nodeRegistry.back());
     victory = false;
     
     nodeRegistry.back().setAutoRef(&(nodeRegistry.back()));
+
+
+    //nodeRegistry.back().getAutoRef()->showValues();
+    //nodeRegistry.back().equivState0(nodeRegistry.back().getAutoRef());
+    //nodeRegistry.back().getAutoRef()->equivState0(nodeRegistry.back().getAutoRef());
 }
 
 
@@ -46,7 +51,7 @@ bool Handler::expansion0(Node* _node){
             //Node copy = _node->partialExpansion(direction);
             nodeRegistry.push_back((_node->partialExpansion(direction)));
             l.push_back(&(nodeRegistry.back()));
-            nodeRegistry.back().setAutoRef(&nodeRegistry.back());
+            nodeRegistry.back().setAutoRef(&(nodeRegistry.back()));
             std::cout << std::endl << "FOR CYCLE EXPANSION0()" << std::endl;
             //copy.showValues();
             std::cout << std::endl << std::endl;
@@ -89,7 +94,7 @@ void Handler::breadthFirstSearch(){
         victory = true;
         std::cout << "GOAL REACHED!" << std::endl;
         return;
-    }
+    }else victory = false;
 /*
     while(!victory //&& (numberOfExpansions != 3)
     ){
@@ -117,7 +122,9 @@ void Handler::breadthFirstSearch(){
 
 
 
-
+Node* Handler::getFront(){
+    return &(nodeRegistry.front());
+}
 
 
 
