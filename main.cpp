@@ -21,14 +21,14 @@ int const L = 10;
 
 int map[L][L] ={{0, 0, 0, 0, 0, 5, 1, 1, 4, 0},
                 {0, 1, 1, 1, 1, 0, 1, 1, 1, 0},
-                {0, 0, 0, 6, 6, 0, 0, 0, 0, 0},
+                {0, 0, 0, 6, 6, 0, 0, 5, 0, 0},
                 {1, 6, 1, 1, 1, 1, 0, 1, 1, 6},
                 {1, 6, 1, 1, 1, 1, 0, 1, 1, 6},
                 {1, 6, 1, 0, 0, 0, 0, 0, 0, 3},
                 {1, 6, 1, 0, 1, 1, 1, 1, 0, 1},
                 {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
                 {1, 0, 1, 0, 1, 0, 1, 1, 1, 1},
-                {1, 0, 0, 0, 6, 6, 6, 0, 0, 5},
+                {1, 0, 0, 0, 6, 6, 6, 0, 0, 0},
                 };
 
 void printMap(int mappa[L][L]);
@@ -39,7 +39,7 @@ void showlist(std::list<int> g);
 
 int main() {
 
-    int initialRobotPosition[2] = {2,2};
+    int initialRobotPosition[2] = {3,1};
     int shipsFuel [2]= {10, 20};
     bool foundItems[2] = {false, false};
     bool drivingShip[2] = {false, false};
@@ -51,15 +51,13 @@ int main() {
     nod.setMap(map);
     //nod.showMap();
     //nod.showValues();
-
+    /*int dir = 3;
+    std::cout << "isPossible(" << dir << "): " << nod.isPossible(dir) 
+        << std::endl;*/
 
     //*****************************
     //*****************************
    
-
-    //*****************************
-    //*****************************
-
     std::cout << std::endl << std::endl;
 
     /*movement number: 

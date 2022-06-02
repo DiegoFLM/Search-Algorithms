@@ -32,6 +32,7 @@ class Handler{
         void greedySearch(); //best-first search
         void aAsteriscSearch();
         Node* getFront();
+        void printWay(Node * _node);
 };
 
 #else

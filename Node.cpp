@@ -38,6 +38,7 @@ int Node::getCost() {
 } 
 
 void Node::showValues(){
+    std::cout << "------VALUES------" << std::endl;
     std::cout << "motherOp: " << motherOp << std::endl;
     std::cout << "depth: " << depth << std::endl;
     std::cout << "cost: " << cost << std::endl;
@@ -207,10 +208,14 @@ Node Node::partialExpansion (int op){
         sonsCost = cost + costsArray[map[sonsRobotsPosition[0]][sonsRobotsPosition[1]]];
     }
 
-    //Getting a ship?
-    if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 3){
+    //Getting ship1?
+    if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 3 && shipsFuel[0] > 0 
+        && !usingShip[1]){
         sonsUsingShip[0] = true;
-    }else if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 4){
+
+    //Getting ship2?
+    }else if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 4 && shipsFuel[1] > 0
+        && !usingShip[0]){
         sonsUsingShip[1] = true;
     }
 
@@ -260,15 +265,6 @@ bool* Node::getFoundItems(){
 }
 
 
-
-void Node::setAutoRef(Node* ref){
-    autoRef = ref;
-}
-
-Node* Node::getAutoRef(){
-    return autoRef;
-}
-
 int Node::getPosition0(){
     return robotsPosition[0];
 }
@@ -289,13 +285,6 @@ bool Node::getFoundItems1(){
 /*if node robots are in the same position, and have found the same item, none or both, they're 
 equivState0   */   
 bool Node::equivState0 (Node *_node2){
-    //_node2->showValues();
-    
-    //std::cout << "robotsPosition[0] = " << robotsPosition[0] << std::endl;
-    //if (  robotsPosition[0] == _node2.getPosition()[0]
-    /*&&  robotsPosition[1] == _node2.getPosition()[1]
-    &&  foundItems[0] == _node2.getFoundItems()[0]
-    &&  foundItems[1] == _node2.getFoundItems()[1] */ 
     if (  robotsPosition[0] == _node2->getPosition0()
             &&  robotsPosition[1] == _node2->getPosition1()
             &&  foundItems[0] == _node2->getFoundItems0()
