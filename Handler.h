@@ -16,7 +16,7 @@ email: diego.ledesma@correounivalle.edu.co
 class Handler{
     private:
         Node rootNode;
-        std::list <Node> l;
+        std::list <Node *> l;
         bool victory;
         
         std::list <Node> nodeRegistry;
@@ -24,7 +24,7 @@ class Handler{
 
     public:
         Handler(Node rootNode);
-        bool expansion0(Node expNode); //best for breadthFirstSearch.
+        bool expansion0(Node* expNode); //best for breadthFirstSearch.
         void search(int mode);
         void breadthFirstSearch();
         void uniformCostSearch();

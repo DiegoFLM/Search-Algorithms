@@ -29,11 +29,10 @@ class Node {
         static int itemPositions[2][2];
         static int costsArray[7];
 
-        static int tPosition[2];
+        //static int tPosition[2];
         static bool tFoundItems[2];
 
         static int MaxDeepth; //pending
-        static std::list <Node> nodeRegistry;
    
     public:     
         Node(Node * father, int motherOp, int depth, int cost, int robotsPosition[2], 
@@ -57,13 +56,16 @@ class Node {
 
         Node partialExpansion (int op);
 
-        void getPosition();
+        void setTPosition();
         bool* getFoundItems();
 
-        bool equivState0 (Node _node2);
+        bool equivState0 (Node* _node2);
 
         void setAutoRef(Node* ref);
         Node* getAutoRef();
+
+        int getPosition0();
+        int getPosition1();
 };
 
 #else
