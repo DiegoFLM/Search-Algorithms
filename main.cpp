@@ -39,13 +39,13 @@ void showlist(std::list<int> g);
 
 int main() {
 
-    int initialRobotPosition[2] = {3,1};
+    int initialRobotPosition[2] = {2,1};
     int shipsFuel [2]= {10, 20};
     bool foundItems[2] = {false, false};
     bool drivingShip[2] = {false, false};
-    int itemPositions[2][2] = {{0, 5},{9, 9}};
+    //int itemPositions[2][2] = {{0, 5},{9, 9}};
 
-    Node nod(nullptr, -1, 0, 0, initialRobotPosition, shipsFuel, foundItems, 
+    Node nod((Node *)nullptr, -1, 0, 0, initialRobotPosition, shipsFuel, foundItems, 
             drivingShip);
 
     nod.setMap(map);
@@ -75,8 +75,8 @@ int main() {
     Handler hand = Handler(nod);
     //nod.equivState0(&nod);
     //hand.expansion0(hand.getFront());
-    //hand.expansion0(&nod);
-    hand.breadthFirstSearch();
+    hand.expansion0(&nod);
+    //hand.breadthFirstSearch();
     
 }
 
@@ -90,7 +90,7 @@ void printMap(int mappa[L][L]){
     }
 }
 
-
+/*
 int * getLocation (int map[L][L]){
     int loc [2];
     for (int row = 0; row < L; row++){
@@ -102,7 +102,7 @@ int * getLocation (int map[L][L]){
         }
     }
     return (int *)loc;
-}
+}*/
 
 
 void showlist(std::list<int> g){

@@ -33,6 +33,7 @@ class Handler{
         void aAsteriscSearch();
         Node* getFront();
         void printWay(Node * _node);
+        void showValsL(std::list<Node *> lst);
 };
 
 #else

@@ -19,7 +19,6 @@ int Node::map [10][10];
 int Node::itemPositions [2][2];
 int Node::costsArray[7];
 
-bool Node::tFoundItems[2];
 
 Node* Node::getFather(){
     return father;
@@ -219,7 +218,7 @@ Node Node::partialExpansion (int op){
         sonsUsingShip[1] = true;
     }
 
-    //sonsFoundItems:
+    //sonsFoundItems:  
     sonsFoundItems[0] = foundItems[0];
     sonsFoundItems[1] = foundItems[1];
     if (sonsRobotsPosition[0] == itemPositions[0][0] 
@@ -249,20 +248,15 @@ Node Node::partialExpansion (int op){
         }
     }
 
-    Node object(this, op, sonsDepth, sonsCost, sonsRobotsPosition, 
+    Node obj(this, sonsModerOp, sonsDepth, sonsCost, sonsRobotsPosition, 
             sonsShipsFuel, sonsFoundItems, sonsUsingShip);
 
-    return object;
+    return obj;
 }
 
         
 
-bool* Node::getFoundItems(){
-    
-    tFoundItems[0] = foundItems[0];
-    tFoundItems[1] = foundItems[1];
-    return tFoundItems;
-}
+
 
 
 int Node::getPosition0(){

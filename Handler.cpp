@@ -7,9 +7,9 @@
 Handler::Handler(Node _rootNode): rootNode(_rootNode){
     std::list <Node> nodeRegistry;
     Node nod555 = _rootNode;
-    nodeRegistry.push_back(_rootNode);
+    nodeRegistry.push_back(rootNode);
     //std::cout << "rootNode: robotsPosition[0] = " << nodeRegistry.back().getPosition0() << std::endl;
-    l.push_front(&nodeRegistry.back());
+    l.push_front(&nodeRegistry.front());
     victory = false;
 
 /*    int dir = 0;
@@ -21,6 +21,7 @@ Handler::Handler(Node _rootNode): rootNode(_rootNode){
 
 bool Handler::expansion0(Node* _node){
     //Node * currentNode = _node;
+    Node copy = (*_node);
     if (_node->goalReached()){
         victory = true;
         std::cout << "GOAL REACHED!" << std::endl;
@@ -35,6 +36,9 @@ bool Handler::expansion0(Node* _node){
 
     if (_node->getDepth() > 2){
             if (_node->equivState0(_node->getFather()->getFather())) {
+    //if (nodeRegistry.front().getDepth() > 2){
+      //      if (nodeRegistry.front().equivState0(_node->getFather()->getFather())) {
+        
                 std::cout << "FUCKING WORKING EQUIVSTATE0. GRAND FATHER DETECTED!!!" << std::endl;
                 l.pop_front();
                 return false;   
@@ -42,12 +46,14 @@ bool Handler::expansion0(Node* _node){
         }
 
     for(int direction = 0; direction < 4; direction++){
+        std::cout << "l.size():     " << l.size() << std::endl;
         l.front()->showValues();
+        std::cout << "l.size():     " << l.size() << std::endl;
         std::cout << "is possible (" << direction << "): " << l.front()->isPossible(direction) 
         << std::endl;
 
         if (l.front()->isPossible(direction)){
-            nodeRegistry.push_back((_node->partialExpansion(direction)));
+            nodeRegistry.push_back((copy.partialExpansion(direction)));
             l.push_back(&(nodeRegistry.back()));
 
             std::cout << std::endl << "FOR CYCLE EXPANSION0()" << std::endl;
@@ -62,6 +68,12 @@ bool Handler::expansion0(Node* _node){
     std::cout << "********************" << std::endl;
     std::cout << "******END FOR*******" << std::endl;
     std::cout << "********************" << std::endl;
+    std::cout << "***ALL ITEMS IN L***" << std::endl;
+    std::cout << "********************" << std::endl;
+    showValsL(l);
+    std::cout << "********************" << std::endl;
+    std::cout << "********************" << std::endl;
+
 
     l.pop_front();
     std::cout << "l.size():     " << l.size() << std::endl;
@@ -156,5 +168,12 @@ void Handler::printWay(Node *_node){
 }
 
 
+void Handler::showValsL(std::list<Node *> lst)
+{
+    std::list<Node *>::iterator it;
+    for (it = lst.begin(); it != lst.end(); ++it)
+        (*it)->showValues();
+    std::cout << '\n';
+}
 
 

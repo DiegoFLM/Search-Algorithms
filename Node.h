@@ -14,7 +14,7 @@ email: diego.ledesma@correounivalle.edu.co
 
 class Node {
     private:
-        Node * father;
+        Node* father;
         int motherOp;
         int depth;
         int cost;
@@ -23,14 +23,12 @@ class Node {
         int shipsFuel[2];
         bool foundItems [2];
         bool usingShip [2];
-        Node* autoRef;
+
 
         static int map[10][10];
         static int itemPositions[2][2];
         static int costsArray[7];
 
-        //static int tPosition[2];
-        static bool tFoundItems[2];
 
         static int MaxDeepth; //pending
    
@@ -57,7 +55,6 @@ class Node {
         Node partialExpansion (int op);
 
         void setTPosition();
-        bool* getFoundItems();
 
         bool equivState0 (Node* _node2);
 
