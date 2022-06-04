@@ -21,14 +21,14 @@ int const L = 10;
 
 int map[L][L] ={{0, 0, 0, 0, 0, 5, 1, 1, 4, 0},
                 {0, 1, 1, 1, 1, 0, 1, 1, 1, 0},
-                {0, 0, 0, 6, 6, 0, 0, 5, 0, 0},
+                {0, 0, 0, 6, 6, 0, 0, 0, 0, 0},
                 {1, 6, 1, 1, 1, 1, 0, 1, 1, 6},
                 {1, 6, 1, 1, 1, 1, 0, 1, 1, 6},
                 {1, 6, 1, 0, 0, 0, 0, 0, 0, 3},
                 {1, 6, 1, 0, 1, 1, 1, 1, 0, 1},
                 {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
                 {1, 0, 1, 0, 1, 0, 1, 1, 1, 1},
-                {1, 0, 0, 0, 6, 6, 6, 0, 0, 0},
+                {1, 0, 0, 0, 6, 6, 6, 0, 0, 5},
                 };
 
 void printMap(int mappa[L][L]);
@@ -39,7 +39,7 @@ void showlist(std::list<int> g);
 
 int main() {
 
-    int initialRobotPosition[2] = {2,1};
+    int initialRobotPosition[2] = {2,2};
     int shipsFuel [2]= {10, 20};
     bool foundItems[2] = {false, false};
     bool drivingShip[2] = {false, false};
@@ -75,9 +75,19 @@ int main() {
     Handler hand = Handler(nod);
     //nod.equivState0(&nod);
     //hand.expansion0(hand.getFront());
-    hand.expansion0(&nod);
-    //hand.breadthFirstSearch();
+    //hand.expansion0(&nod);
+    //nod.showValues();
+    hand.breadthFirstSearch();
     
+    /*
+    Node nod2 = nod.partialExpansion(1);
+
+    std::cout << "****************" << std::endl;
+    std::cout << "******nod*******" << std::endl;
+    nod.showValues();
+    std::cout << "******nod2******" << std::endl;
+    nod2.showValues();
+    */
 }
 
 

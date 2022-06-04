@@ -248,14 +248,11 @@ Node Node::partialExpansion (int op){
         }
     }
 
-    Node obj(this, sonsModerOp, sonsDepth, sonsCost, sonsRobotsPosition, 
+    Node obj(&(*this), sonsModerOp, sonsDepth, sonsCost, sonsRobotsPosition, 
             sonsShipsFuel, sonsFoundItems, sonsUsingShip);
 
     return obj;
 }
-
-        
-
 
 
 
