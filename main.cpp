@@ -77,7 +77,9 @@ int main() {
     //hand.expansion0(hand.getFront());
     //hand.expansion0(&nod);
     //nod.showValues();
-    hand.breadthFirstSearch();
+    
+    hand.uniformCostSearch();
+    //hand.breadthFirstSearch();
     
     /*
     Node nod2 = nod.partialExpansion(1);

@@ -62,6 +62,9 @@ class Node {
         int getPosition1();
         bool getFoundItems0();
         bool getFoundItems1();
+
+        bool getUsingShip0();
+        bool getUsingShip1();
 };
 
 #else

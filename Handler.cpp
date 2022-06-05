@@ -11,7 +11,7 @@ Handler::Handler(Node _rootNode): rootNode(_rootNode){
     //std::cout << "rootNode: robotsPosition[0] = " << nodeRegistry.back().getPosition0() << std::endl;
     l.push_front(&rootNode);
     victory = false;
-
+    minCost = 0;
 /*    int dir = 0;
     std::cout << "isPossible(" << dir << "): " << l.back()->isPossible(dir) 
         << std::endl;*/
@@ -37,6 +37,7 @@ Handler::Handler(Node fn, int _initialRobotPosition[2], int _shipsFuel[2], bool 
     victory = false;
 }
 
+//best node expansion for breadthFirstSearch and uniformCostSearch
 bool Handler::expansion0(Node* _node){
     //Node * currentNode = _node;
     //Node copy = (*_node);
@@ -47,7 +48,7 @@ bool Handler::expansion0(Node* _node){
     std::cout << "***ALL ITEMS IN NodeRegistry before FOR cycle:***" << std::endl;
     std::cout << "********************" << std::endl;
     std::cout << "nodeRegistry.size(): " << nodeRegistry.size() << std::endl;
-    showVals2(nodeRegistry);
+    showValsNodeRegistry(nodeRegistry);
     */
 
     if (_node->goalReached()){
@@ -57,7 +58,7 @@ bool Handler::expansion0(Node* _node){
         std::cout << "victory depth:    " << _node->getDepth() << std::endl;
         std::cout << "l.size():     " << l.size() << std::endl;
 
-        std::cout << "root nodes father: " << nodeRegistry.front().getFather() << std::endl;
+        //std::cout << "root nodes father: " << nodeRegistry.front().getFather() << std::endl;
         printWay(_node);
         return victory;
     }
@@ -65,33 +66,35 @@ bool Handler::expansion0(Node* _node){
 
     for(int direction = 0; direction < 4; direction++){
         std::cout << "l.size():     " << l.size() << std::endl;
-        //l.front()->showValues();
-        //std::cout << "l.size():     " << l.size() << std::endl;
-        std::cout << "is possible (" << direction << "): " << l.front()->isPossible(direction) 
+        std::cout << "is possible (" << direction << "): " << _node->isPossible(direction) 
         << std::endl;
 
-        if (_node->getDepth() > 0){
+        if ( !(_node->isPossible(direction)) ){
+            std::cout << std::endl << "NOT GOING IN DIRECTION: " << direction << std::endl;
+            std::cout << "********************" << std::endl;
+            continue;
+
+        }else if (_node->getDepth() > 0){ //Not going back
             if ( (_node->getFoundItems0() == (_node->getFather())->getFoundItems0())
                 && (_node->getFoundItems1() == (_node->getFather())->getFoundItems1())
                 && ( std::abs(direction - _node->getMotherOp()) == 2 ) 
-                && ( direction != _node->getMotherOp() )  ) {
+                && !( _node->getUsingShip0() == 1  &&  (_node->getFather())->getUsingShip0() == 0 )
+                && !( _node->getUsingShip1() == 1  &&  (_node->getFather())->getUsingShip1() == 0 )
+                ) {
                 std::cout << "FUCKING WORKING NOT GOING BACK!!" << std::endl;
                 continue;   
             }
         }
+             //is possible to into the current direction
 
-        if (l.front()->isPossible(direction)){
-            nodeRegistry.push_back(((*_node).partialExpansion(direction)));
-            l.push_back(&(nodeRegistry.back()));
+        nodeRegistry.push_back(((*_node).partialExpansion(direction)));
+        l.push_back(&(nodeRegistry.back()));
 
-            std::cout << std::endl << "FOR CYCLE EXPANSION0( "<< direction <<" )" << std::endl;
-            std::cout << std::endl << std::endl;
-        } else {
-            std::cout << std::endl << "NOT GOING IN DIRECTION: " << direction << std::endl;
-        }
-        std::cout << "********************" << std::endl;
+        std::cout << std::endl << "FOR CYCLE EXPANSION0( "<< direction <<" )" << std::endl;
+        std::cout << std::endl << std::endl;
+        
     }
-    std::cout << "depth after for:    " << l.front()->getDepth() + 1 << std::endl;
+    std::cout << "depth after for:    " << l.back()->getDepth() << std::endl;
     
     /*std::cout << "********************" << std::endl;
     std::cout << "******END FOR*******" << std::endl;
@@ -103,13 +106,44 @@ bool Handler::expansion0(Node* _node){
     std::cout << "********************" << std::endl;
     std::cout << "***ALL ITEMS IN NodeRegistry after FOR cycle***" << std::endl;
     std::cout << "********************" << std::endl;
-    showVals2(nodeRegistry);*/
-    l.pop_front();
-    std::cout << "l.size():     " << l.size() << std::endl;
-    std::cout << "nodeRegistry.size():     " << nodeRegistry.size() << std::endl;
+    showValsNodeRegistry(nodeRegistry);*/
+    
+    
+    //l.pop_front();
+    l.remove(_node);
+    
+    
+    std::cout << "l.size() after l.pop_front():     " << l.size() << std::endl;
+    std::cout << "nodeRegistry.size() at the end of expansion0: " << nodeRegistry.size() << std::endl;
 
     return victory;
 }
+
+//best node expansion for depthFirstSearch.
+bool Handler::expansion2(Node* expNode){
+    
+    
+    if (expNode->goalReached()){
+        victory = true;
+        std::cout << "GOAL REACHED!" << std::endl;
+        std::cout << "victory depth:    " << expNode->getDepth() << std::endl;
+        std::cout << "l.size():     " << l.size() << std::endl;
+        std::cout << "root nodes father: " << nodeRegistry.front().getFather() << std::endl;
+        printWay(expNode);
+        return victory;
+    }
+
+
+    //for(int direction = 0; direction < 4; direction++){
+        
+    //}
+
+
+    return false;
+
+
+} 
+
 
 void Handler::search(int mode){
         /*
@@ -129,19 +163,22 @@ void Handler::search(int mode){
 
 
 void Handler::breadthFirstSearch(){
-    /*std::list <Node > l;
-    l.push_front(rootNode);
-    victory = false;*/
+
+    l.clear();
+    l.push_front(&rootNode);
+    victory = false;
+
+    
     int numberOfExpansions = 0;
     nodeRegistry.push_back(rootNode);
     std::cout << "l.size() = " << l.size() << std::endl;
     std::cout << "nodeRegistry.size() = " << nodeRegistry.size() << std::endl;
 
-    if (nodeRegistry.front().goalReached()){
+    if (nodeRegistry.back().goalReached()){
         victory = true;
         std::cout << "GOAL REACHED!" << std::endl;
         return;
-    }else victory = false;
+    }
 
     while(!victory /*&& (numberOfExpansions != 3)*/)
     {
@@ -153,8 +190,6 @@ void Handler::breadthFirstSearch(){
         //l.front()->showValues();
     }
 
-    
-    
     //nodeRegistry.back().showValues();
     //l.front()->showValues();
     /*std::cout << "********************" << std::endl;
@@ -173,6 +208,55 @@ void Handler::breadthFirstSearch(){
 }
 
 
+void Handler::uniformCostSearch(){
+    l.clear();
+    l.push_front(&rootNode);
+    victory = false;
+    minCost = 0;
+
+    int numberOfExpansions = 0;
+    nodeRegistry.push_back(rootNode);
+
+    std::cout << "l.size() = " << l.size() << std::endl;
+
+    if (nodeRegistry.back().goalReached()){
+        victory = true;
+        std::cout << "GOAL REACHED!" << std::endl;
+        return;
+    }
+
+    while(!victory /*&& (numberOfExpansions != 3)*/)
+    {
+        //std::cout << std::endl << "l.front()->showValues() before expansion: " << std::endl;
+        //l.front()->showValues();
+        std::cout << std::endl;
+
+        minCost = l.front()->getCost();
+        Node* expandingNode = l.front();
+        std::list<Node *>::iterator it;
+        for (it = l.begin(); it != l.end(); ++it){
+            //std::cout << "(*it)->getCost() = " << (*it)->getCost() << std::endl;
+            if( (*it)->getCost() < minCost ){
+                minCost = (*it)->getCost();
+                expandingNode = *it;
+            }
+        }
+        std::cout << std::endl << "********************" << std::endl;
+        std::cout << std::endl << "********************" << std::endl;
+        std::cout << "expandingNode: " << std::endl;
+        expandingNode->showValues();
+
+
+        expansion0(expandingNode);
+        numberOfExpansions++;
+        std::cout << "Number of expansions: " << numberOfExpansions << std::endl;
+        //l.front()->showValues();
+    }
+
+    //std::cout << std::endl << "victo";
+
+
+}
 
 
 Node* Handler::getFront(){
@@ -186,6 +270,7 @@ void Handler::printWay(Node *_node){
     while (current_point->getDepth() != 0){
         std::cout << "************" << std::endl;
         std::cout << "depth = " << current_point->getDepth() <<std::endl;
+        std::cout << "cost = " << current_point->getCost() <<std::endl;
         std::cout << "point[0] = " << current_point->getPosition0() << std::endl;
         std::cout << "point[1] = " << current_point->getPosition1() << std::endl;
 
@@ -210,9 +295,13 @@ void Handler::showValsL(std::list<Node *> lst)
     std::cout << '\n';
 }
 
-void Handler::showVals2(std::list<Node> lst){
+void Handler::showValsNodeRegistry(std::list<Node> lst){
     std::list<Node>::iterator it;
     for (it = lst.begin(); it != lst.end(); ++it)
         (*it).showValues();
     std::cout << '\n';
 }
+
+
+
+

@@ -53,7 +53,6 @@ void Node::showValues(){
     std::cout << "itemPositions[0][1]: " << itemPositions[0][1] << std::endl;
     std::cout << "itemPositions[1][0]: " << itemPositions[1][0] << std::endl;
     std::cout << "itemPositions[1][1]: " << itemPositions[1][1] << std::endl;
-
 }
 
 void Node::setMap(int _map[10][10]){
@@ -272,6 +271,13 @@ bool Node::getFoundItems1(){
     return foundItems[1];
 }
 
+bool Node::getUsingShip0(){
+    return usingShip[0];
+}
+
+bool Node::getUsingShip1(){
+    return usingShip[1];
+}
 
 /*if node robots are in the same position, and have found the same item, none or both, they're 
 equivState0   */   
