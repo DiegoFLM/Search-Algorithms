@@ -62,7 +62,7 @@ void Node::setMap(int _map[10][10]){
         }
     }
 
-    //Set item positions 
+    //Set item and ship positions 
     int item = 0;
     for (int r = 0; r < 10; r++){
         for (int c = 0; c < 10; c++){
@@ -70,10 +70,12 @@ void Node::setMap(int _map[10][10]){
                 itemPositions[item][0] = r;
                 itemPositions[item][1] = c;
                 item++;
-
             }
         }
     }
+
+    //setShipsPosition
+
     
     //costs
     costsArray[0]= 1;   //Free block
@@ -206,16 +208,7 @@ Node Node::partialExpansion (int op){
         sonsCost = cost + costsArray[map[sonsRobotsPosition[0]][sonsRobotsPosition[1]]];
     }
 
-    //Getting ship1?
-    if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 3 && shipsFuel[0] > 0 
-        && !usingShip[1]){
-        sonsUsingShip[0] = true;
-
-    //Getting ship2?
-    }else if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 4 && shipsFuel[1] > 0
-        && !usingShip[0]){
-        sonsUsingShip[1] = true;
-    }
+    
 
     //sonsFoundItems:  
     sonsFoundItems[0] = foundItems[0];
@@ -245,6 +238,17 @@ Node Node::partialExpansion (int op){
         if (sonsShipsFuel[1] == 0){
             sonsUsingShip[1] = false;
         }
+    }
+
+    //Getting ship1?
+    if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 3 && shipsFuel[0] > 0 
+        && !usingShip[1]){
+        sonsUsingShip[0] = true;
+
+    //Getting ship2?
+    }else if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 4 && shipsFuel[1] > 0
+        && !usingShip[0]){
+        sonsUsingShip[1] = true;
     }
 
     Node obj(&(*this), sonsModerOp, sonsDepth, sonsCost, sonsRobotsPosition, 

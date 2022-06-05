@@ -225,7 +225,7 @@ void Handler::uniformCostSearch(){
         return;
     }
 
-    while(!victory /*&& (numberOfExpansions != 3)*/)
+    while(!victory /*&& (numberOfExpansions != 4)*/)
     {
         //std::cout << std::endl << "l.front()->showValues() before expansion: " << std::endl;
         //l.front()->showValues();
