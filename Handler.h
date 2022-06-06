@@ -10,6 +10,8 @@ email: diego.ledesma@correounivalle.edu.co
 
 #include <iterator>
 #include <list>
+#include <chrono>
+
 
 #include "Node.h"
 

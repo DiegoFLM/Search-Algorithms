@@ -78,10 +78,17 @@ int main() {
     //hand.expansion0(&nod);
     //nod.showValues();
     
+
+    auto timePoint1 = std::chrono::high_resolution_clock::now();
+
     //hand.breadthFirstSearch();
     //hand.uniformCostSearch();
     hand.depthFirstSearch();
     
+    auto timePoint2 = std::chrono::high_resolution_clock::now();
+    auto timePeriod2 = std::chrono::duration_cast<std::chrono::microseconds> 
+                        (timePoint2 - timePoint1);
+    std::cout << "search time [micro s]:  " << timePeriod2.count() << std::endl;
     /*
     Node nod2 = nod.partialExpansion(1);
 
