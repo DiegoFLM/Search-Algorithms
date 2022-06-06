@@ -306,3 +306,24 @@ bool Node::equivState0 (Node *_node2){
         return false;
     }
 }
+
+
+int Node::h(){
+    int distBetweenItems;
+    int distToItem0;
+    int distToItem1;
+    int h;
+    distBetweenItems = std::abs(itemPositions[0][0] - itemPositions[1][0])
+        + std::abs(itemPositions[0][1] - itemPositions[1][1]);
+    distToItem0 = std::abs(itemPositions[0][0] - robotsPosition[0])
+        + std::abs(itemPositions[0][1] - robotsPosition[1]);
+    distToItem1 = std::abs(itemPositions[1][0] - robotsPosition[0])
+        + std::abs(itemPositions[1][1] - robotsPosition[1]);
+    
+    if (distToItem0 < distToItem1 )
+        h = distToItem0 + distBetweenItems;
+    else 
+        h = distToItem1 + distBetweenItems;
+
+    return h;
+}

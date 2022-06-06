@@ -49,6 +49,7 @@ int main() {
             drivingShip);
 
     nod.setMap(map);
+    //std::cout << "nod.h() = " << nod.h() << std::endl;
     //nod.showMap();
     //nod.showValues();
     /*int dir = 3;
@@ -83,12 +84,16 @@ int main() {
 
     //hand.breadthFirstSearch();
     //hand.uniformCostSearch();
-    hand.depthFirstSearch();
+    //hand.depthFirstSearch();
+    hand.greedySearch();
     
     auto timePoint2 = std::chrono::high_resolution_clock::now();
     auto timePeriod2 = std::chrono::duration_cast<std::chrono::microseconds> 
                         (timePoint2 - timePoint1);
     std::cout << "search time [micro s]:  " << timePeriod2.count() << std::endl;
+    
+
+
     /*
     Node nod2 = nod.partialExpansion(1);
 

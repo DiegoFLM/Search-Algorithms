@@ -58,6 +58,8 @@ class Node {
 
         bool equivState0 (Node* _node2);
 
+        int h();
+
         int getPosition0();
         int getPosition1();
         bool getFoundItems0();

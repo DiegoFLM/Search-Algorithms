@@ -38,6 +38,7 @@ Handler::Handler(Node fn, int _initialRobotPosition[2], int _shipsFuel[2], bool 
 }
 
 //best node expansion for breadthFirstSearch and uniformCostSearch
+//expansion0 avoids going back.
 bool Handler::expansion0(Node* _node){
     //Node * currentNode = _node;
     //Node copy = (*_node);
@@ -74,13 +75,13 @@ bool Handler::expansion0(Node* _node){
 
         }else if (_node->getDepth() > 0){ //Not going back
             
-            if ( (_node->getFoundItems0() == (_node->getFather())->getFoundItems0())
-                && (_node->getFoundItems1() == (_node->getFather())->getFoundItems1())
+            if ( ( _node->getFoundItems0() == (_node->getFather())->getFoundItems0() )
+                && ( _node->getFoundItems1() == (_node->getFather())->getFoundItems1() )
                 && ( std::abs(direction - _node->getMotherOp()) == 2 ) 
-                && !( _node->getUsingShip0() == 1  &&  (_node->getFather())->getUsingShip0() == 0 )
-                && !( _node->getUsingShip1() == 1  &&  (_node->getFather())->getUsingShip1() == 0 )
+                && ( _node->getUsingShip0() ==  (_node->getFather())->getUsingShip0() )
+                && ( _node->getUsingShip1() ==  (_node->getFather())->getUsingShip1() )
                 ) {
-                std::cout << "FUCKING WORKING NOT GOING BACK!!" << std::endl;
+                std::cout << "NOT GOING BACK UNLESS TAKING OR LEAVING A SHIP!!" << std::endl;
                 continue;   
             }
         }
@@ -119,10 +120,10 @@ bool Handler::expansion0(Node* _node){
 }
 
 //best node expansion for depthFirstSearch.
+//expansion2 avoids going back and cycles.
 bool Handler::expansion2(Node* _expNode){
     
     Node* ancestor;
-    bool mustExpand = true;
 
     if (_expNode->goalReached()){
         victory = true;
@@ -132,6 +133,41 @@ bool Handler::expansion2(Node* _expNode){
         std::cout << "root nodes father: " << nodeRegistry.front().getFather() << std::endl;
         printWay(_expNode);
         return victory;
+    }
+
+    //Avoid cycles. If it takes a ship or not, that's ignored since cost is not
+    //relevant for depthFirstSearch() nor for greedySearch()
+    if ( _expNode->getDepth() > 1 ){
+        std::cout << "ENTERED INSIDE IF OF ANCESTOR: " << std::endl;
+        ancestor = _expNode->getFather();
+        while ( !(ancestor->getFather() == nullptr) ){
+            if( (ancestor->getPosition0() == _expNode->getPosition0() )
+                && ( ancestor->getPosition1() == _expNode->getPosition1() )
+                && ( ancestor->getFoundItems0() == _expNode->getFoundItems0() )
+                && ( ancestor->getFoundItems1() == _expNode->getFoundItems1() )  
+                /* && !( ancestor->getUsingShip0() == 0  &&  _expNode->getUsingShip0() == 1 )
+                && !( ancestor->getUsingShip1() == 0  &&  _expNode->getUsingShip1() == 1 )  */
+                )
+            {
+                std::cout << "***AVOIDING CYCLES WORKING***" << std::endl;
+                
+                l.remove(_expNode);
+    
+                std::cout << "l.size() after l.remove(_expNode) :    " << l.size() << std::endl;
+                std::cout << "nodeRegistry.size() at the end of expansion0: " << nodeRegistry.size() << std::endl;
+                std::cout << "EXITING WHILE OF ANCESTORS: " << std::endl;
+                return victory;
+            }
+            /*std::cout << "CHANGE OF ANCESTOR: " << std::endl;
+            std::cout << "ancestor->showValues()  BEFORE change: " << std::endl;
+            ancestor->showValues();*/
+
+            ancestor = ancestor->getFather();
+            
+            //std::cout << "ancestor->showValues()  AFTER change: " << std::endl;
+            //ancestor->showValues();
+        }
+        
     }
 
     for(int direction = 3; direction >= 0; direction--){
@@ -149,51 +185,19 @@ bool Handler::expansion2(Node* _expNode){
             if ( (_expNode->getFoundItems0() == (_expNode->getFather())->getFoundItems0())
                 && (_expNode->getFoundItems1() == (_expNode->getFather())->getFoundItems1())
                 && ( std::abs(direction - _expNode->getMotherOp()) == 2 ) 
-                && !( _expNode->getUsingShip0() == 1  &&  (_expNode->getFather())->getUsingShip0() == 0 )
-                && !( _expNode->getUsingShip1() == 1  &&  (_expNode->getFather())->getUsingShip1() == 0 )
+                && ( _expNode->getUsingShip0() == (_expNode->getFather())->getUsingShip0() )
+                && ( _expNode->getUsingShip1() == (_expNode->getFather())->getUsingShip1() )
                 ) {
-                std::cout << "FUCKING WORKING NOT GOING BACK!!" << std::endl;
+                std::cout << "NOT GOING BACK UNLESS TAKING OR LEAVING A SHIP" << std::endl;
                 continue;   
             }
 
-            //Avoid cycles. If it takes a ship or not, that's ignored since cost is not
-            //relevant for depthFirstSearch() 
             
-            if ( _expNode->getDepth() > 1 ){
-                std::cout << "ENTERED INSIDE IF OF ANCESTOR: " << std::endl;
-                ancestor = _expNode->getFather();
-                while ( !(ancestor->getFather() == nullptr) ){
-                    if( (ancestor->getPosition0() == _expNode->getPosition0() )
-                        && ( ancestor->getPosition1() == _expNode->getPosition1() )
-                        && ( ancestor->getFoundItems0() == _expNode->getFoundItems0() )
-                        && ( ancestor->getFoundItems1() == _expNode->getFoundItems1() )  
-                        /* && !( ancestor->getUsingShip0() == 0  &&  _expNode->getUsingShip0() == 1 )
-                        && !( ancestor->getUsingShip1() == 0  &&  _expNode->getUsingShip1() == 1 )  */
-                        )
-                    {
-                    std::cout << "***AVOIDING CYCLES WORKING***" << std::endl;
-                    mustExpand = false;
-                    }
-                    /*std::cout << "CHANGE OF ANCESTOR: " << std::endl;
-                    std::cout << "ancestor->showValues()  BEFORE change: " << std::endl;
-                    ancestor->showValues();*/
-
-                    ancestor = ancestor->getFather();
-            
-                    //std::cout << "ancestor->showValues()  AFTER change: " << std::endl;
-                    //ancestor->showValues();
-                }
-                std::cout << "EXITED WHILE OF ANCESTORS: " << std::endl;
-            }
         }
 
-        if (mustExpand){
-            nodeRegistry.push_back(((*_expNode).partialExpansion(direction)));
-            l.push_back(&(nodeRegistry.back()));
-        }
-
+        nodeRegistry.push_back(((*_expNode).partialExpansion(direction)));
+        l.push_back(&(nodeRegistry.back()));
         
-
         std::cout << std::endl << "FOR CYCLE EXPANSION0( "<< direction <<" )" << std::endl;
         std::cout << std::endl << std::endl;
     
@@ -225,6 +229,8 @@ void Handler::search(int mode){
         break;
     }
 }
+
+
 
 
 void Handler::breadthFirstSearch(){
@@ -338,9 +344,59 @@ void Handler::depthFirstSearch(){
         numberOfExpansions++;
         std::cout << "Number of expansions: " << numberOfExpansions << std::endl;
     }
-
-
 }
+
+
+
+
+void Handler::greedySearch(){
+    l.clear();
+    l.push_front(&rootNode);
+    victory = false;
+    int minH = 0;
+    int numberOfExpansions = 0;
+
+    nodeRegistry.push_back(rootNode);
+
+    std::cout << "l.size() = " << l.size() << std::endl;
+
+    if (nodeRegistry.back().goalReached()){
+        victory = true;
+        std::cout << "GOAL REACHED!" << std::endl;
+        return;
+    }
+
+
+    while(!victory  /* && (numberOfExpansions != 4) */  )
+    {
+        std::cout << std::endl;
+
+        minH = l.front()->h();
+        Node* expandingNode = l.front();
+        std::list<Node *>::iterator it;
+        for (it = l.begin(); it != l.end(); ++it){
+            std::cout << "(*it)->h() = " << (*it)->h() << std::endl;
+            if( (*it)->h() < minH ){
+                minH = (*it)->h();
+                expandingNode = *it;
+            }
+        }
+
+        std::cout << std::endl << "********************" << std::endl;
+        std::cout << std::endl << "********************" << std::endl;
+        std::cout << "expandingNode: " << std::endl;
+        expandingNode->showValues();
+
+        expansion2(expandingNode);
+        numberOfExpansions++;
+        std::cout << "Number of expansions: " << numberOfExpansions << std::endl;
+        //l.front()->showValues();
+    }
+}
+
+
+
+
 
 
 Node* Handler::getFront(){
