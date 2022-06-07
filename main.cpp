@@ -19,7 +19,7 @@ int const L = 10;
 6 si es una casilla con aceite
 */
 
-int map[L][L] ={{0, 0, 0, 0, 0, 5, 1, 1, 4, 0},
+/*int map[L][L] ={{0, 0, 0, 0, 0, 5, 1, 1, 4, 0},
                 {0, 1, 1, 1, 1, 0, 1, 1, 1, 0},
                 {0, 0, 0, 6, 6, 0, 0, 0, 0, 0},
                 {1, 6, 1, 1, 1, 1, 0, 1, 1, 6},
@@ -29,7 +29,7 @@ int map[L][L] ={{0, 0, 0, 0, 0, 5, 1, 1, 4, 0},
                 {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
                 {1, 0, 1, 0, 1, 0, 1, 1, 1, 1},
                 {1, 0, 0, 0, 6, 6, 6, 0, 0, 5},
-                };
+                };*/
 
 void printMap(int mappa[L][L]);
 
@@ -38,6 +38,19 @@ int * getLocation (int map[L][L]);
 void showlist(std::list<int> g);
 
 int main() {
+    std::string rawPosition;
+
+    std::ifstream mapFile;
+    mapFile.open("map.txt"/*, std::ios::in*/);
+    
+    int readMap[L][L];
+
+    for (int r = 0; r < 10; r++){
+        for (int c = 0; c < 10; c++){
+            mapFile >> rawPosition;
+            readMap[r][c] = std::stoi(rawPosition);
+        }
+    }
 
     int initialRobotPosition[2] = {2,2};
     int shipsFuel [2]= {10, 20};
@@ -48,17 +61,12 @@ int main() {
     Node nod((Node *)nullptr, -1, 0, 0, initialRobotPosition, shipsFuel, foundItems, 
             drivingShip);
 
-    nod.setMap(map);
+    //nod.setMap(map);
+    nod.setMap(readMap);
+    
     //std::cout << "nod.h() = " << nod.h() << std::endl;
-    //nod.showMap();
-    //nod.showValues();
-    /*int dir = 3;
-    std::cout << "isPossible(" << dir << "): " << nod.isPossible(dir) 
-        << std::endl;*/
+    nod.showMap();
 
-    //*****************************
-    //*****************************
-   
     std::cout << std::endl << std::endl;
 
     /*movement number: 
@@ -68,42 +76,24 @@ int main() {
     3 := right*/
     //std::cout << "nos.ispossible(int op):  " << nod.isPossible(3) << std::endl << std::endl;
 
-    //Node node2 = nod.partialExpansion(1);
-    //node2.showValues();
 
-
-
-    Handler hand = Handler(nod);
-    //nod.equivState0(&nod);
-    //hand.expansion0(hand.getFront());
-    //hand.expansion0(&nod);
-    //nod.showValues();
-    
+    Handler hand = Handler(nod);    
 
     auto timePoint1 = std::chrono::high_resolution_clock::now();
 
-    //hand.breadthFirstSearch();
+    hand.breadthFirstSearch();
     //hand.uniformCostSearch();
     //hand.depthFirstSearch();
     //hand.greedySearch();
-    hand.aAsteriscSearch();
+    //hand.aAsteriscSearch();
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
     auto timePeriod2 = std::chrono::duration_cast<std::chrono::microseconds> 
                         (timePoint2 - timePoint1);
     std::cout << "search time [micro s]:  " << timePeriod2.count() << std::endl;
-    
 
 
-    /*
-    Node nod2 = nod.partialExpansion(1);
-
-    std::cout << "****************" << std::endl;
-    std::cout << "******nod*******" << std::endl;
-    nod.showValues();
-    std::cout << "******nod2******" << std::endl;
-    nod2.showValues();
-    */
+   mapFile.close();
 }
 
 
