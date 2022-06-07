@@ -41,6 +41,7 @@ void Node::showValues(){
     std::cout << "motherOp: " << motherOp << std::endl;
     std::cout << "depth: " << depth << std::endl;
     std::cout << "cost: " << cost << std::endl;
+    std::cout << "h(): " << h() << std::endl;
     std::cout << "robotsPosition[0]: " << robotsPosition[0] << std::endl;
     std::cout << "robotsPosition[1]: " << robotsPosition[1] << std::endl;
     std::cout << "shipsFuel[0]: " << shipsFuel[0] << std::endl;
@@ -313,17 +314,35 @@ int Node::h(){
     int distToItem0;
     int distToItem1;
     int h;
-    distBetweenItems = std::abs(itemPositions[0][0] - itemPositions[1][0])
-        + std::abs(itemPositions[0][1] - itemPositions[1][1]);
-    distToItem0 = std::abs(itemPositions[0][0] - robotsPosition[0])
-        + std::abs(itemPositions[0][1] - robotsPosition[1]);
-    distToItem1 = std::abs(itemPositions[1][0] - robotsPosition[0])
-        + std::abs(itemPositions[1][1] - robotsPosition[1]);
     
-    if (distToItem0 < distToItem1 )
-        h = distToItem0 + distBetweenItems;
-    else 
-        h = distToItem1 + distBetweenItems;
+    if ( !foundItems[0] && !foundItems[1] ){ // ningún item encontrado
+        distBetweenItems = std::abs(itemPositions[0][0] - itemPositions[1][0])
+            + std::abs(itemPositions[0][1] - itemPositions[1][1]);
+        distToItem0 = std::abs(itemPositions[0][0] - robotsPosition[0])
+            + std::abs(itemPositions[0][1] - robotsPosition[1]);
+        distToItem1 = std::abs(itemPositions[1][0] - robotsPosition[0])
+            + std::abs(itemPositions[1][1] - robotsPosition[1]);
+    
+        if (distToItem0 < distToItem1 )
+            h = distToItem0 + distBetweenItems;
+        else 
+            h = distToItem1 + distBetweenItems;
 
-    return h;
+        return h;
+    } else if (foundItems[0]){ //first item already found
+        distToItem1 = std::abs(itemPositions[1][0] - robotsPosition[0])
+            + std::abs(itemPositions[1][1] - robotsPosition[1]);
+        
+        h = distToItem1;
+        return h;
+    } else { // second item already found
+        distToItem0 = std::abs(itemPositions[0][0] - robotsPosition[0])
+            + std::abs(itemPositions[0][1] - robotsPosition[1]);
+        
+        h = distToItem0;
+        return h;
+    } 
+
+    std::cout << "h() OF A VICTORY NODE:" << std::endl;
+    return 0;
 }

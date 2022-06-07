@@ -348,7 +348,9 @@ void Handler::depthFirstSearch(){
 
 
 
-
+/*  greedySearch() expands nodes in the reverse order right now.
+It can be modiefied to follow an operator order by doing the for loop
+from the back to the front of l  */
 void Handler::greedySearch(){
     l.clear();
     l.push_front(&rootNode);
@@ -367,15 +369,18 @@ void Handler::greedySearch(){
     }
 
 
-    while(!victory  /* && (numberOfExpansions != 4) */  )
+    while(!victory  /* && (numberOfExpansions != 10) */  )
     {
-        std::cout << std::endl;
+        std::cout  << std::endl;
 
-        minH = l.front()->h();
-        Node* expandingNode = l.front();
-        std::list<Node *>::iterator it;
-        for (it = l.begin(); it != l.end(); ++it){
-            std::cout << "(*it)->h() = " << (*it)->h() << std::endl;
+        minH = l.back()->h();
+        //std::cout << "p2" << std::endl;
+        Node* expandingNode = l.back();
+        std::list<Node *>::reverse_iterator it;
+        for (it = l.rbegin(); it != l.rend(); ++it){
+            //(*it)->showValues();
+            //std::cout << "p3" << std::endl;
+            //std::cout << "(*it)->h() = " << (*it)->h() << std::endl;
             if( (*it)->h() < minH ){
                 minH = (*it)->h();
                 expandingNode = *it;
@@ -395,7 +400,9 @@ void Handler::greedySearch(){
 }
 
 
+void Handler::aAsteriscSearch(){
 
+}
 
 
 
@@ -411,6 +418,7 @@ void Handler::printWay(Node *_node){
         std::cout << "************" << std::endl;
         std::cout << "depth = " << current_point->getDepth() <<std::endl;
         std::cout << "cost = " << current_point->getCost() <<std::endl;
+        std::cout << "h() = " << current_point->h() <<std::endl;
         std::cout << "point[0] = " << current_point->getPosition0() << std::endl;
         std::cout << "point[1] = " << current_point->getPosition1() << std::endl;
 
@@ -422,6 +430,7 @@ void Handler::printWay(Node *_node){
     std::cout << "start point: " << std::endl;
     std::cout << "************" << std::endl;
     std::cout << "depth = " << current_point->getDepth() <<std::endl;
+    std::cout << "h() = " << current_point->h() <<std::endl;
     std::cout << "point[0] = " << current_point->getPosition0() << std::endl;
     std::cout << "point[1] = " << current_point->getPosition1() << std::endl;
 }
