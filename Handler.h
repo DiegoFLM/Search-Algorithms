@@ -32,6 +32,7 @@ class Handler{
                     bool _drivingShip[2]);
         bool expansion0(Node* expNode); //best for breadthFirstSearch.
         bool expansion2(Node* expNode);  //best for depthFirstSearch.
+        bool expansion3(Node* _expNode); //best for A*
         void search(int mode);
         void breadthFirstSearch();
         void uniformCostSearch();

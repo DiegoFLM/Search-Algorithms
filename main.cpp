@@ -85,8 +85,9 @@ int main() {
     //hand.breadthFirstSearch();
     //hand.uniformCostSearch();
     //hand.depthFirstSearch();
-    hand.greedySearch();
-    
+    //hand.greedySearch();
+    hand.aAsteriscSearch();
+
     auto timePoint2 = std::chrono::high_resolution_clock::now();
     auto timePeriod2 = std::chrono::duration_cast<std::chrono::microseconds> 
                         (timePoint2 - timePoint1);
