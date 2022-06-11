@@ -12,7 +12,12 @@ Node::Node(Node * _father, int _motherOp, int _depth, int _cost, int _robotsPosi
             shipsFuel({_shipsFuel[0], _shipsFuel[1]}),
             foundItems({_foundItems[0], _foundItems[1]}), 
             usingShip({_usingShip[0], _usingShip[1]}) {
-                
+                this->showValues();
+                std::cout << "CREATING NODE WITH: " << std::endl;
+                std::cout << "_shipsFuel[0] = " << _shipsFuel[0] << std::endl;
+                std::cout << "_shipsFuel[1] = " << _shipsFuel[1]  << std::endl;
+                std::cout << "shipsFuel[0] = " << shipsFuel[0] << std::endl;
+                std::cout << "shipsFuel[1] = " << shipsFuel[1]  << std::endl;
             }
 
 int Node::map [10][10];
@@ -57,14 +62,26 @@ void Node::showValues(){
 }
 
 void Node::setMap(int _map[10][10]){
+
+    int item = 0;
+
     for (int r = 0; r < 10; r++){
         for (int c = 0; c < 10; c++){
             map[r][c] = _map[r][c];
+
+            if ( map[r][c] == 5 ){
+                itemPositions[item][0] = r;
+                itemPositions[item][1] = c;
+                item++;
+            } else if( map[r][c] == 2 ){
+                robotsPosition[0] = r;
+                robotsPosition[1] = c;
+            }
         }
     }
 
     //Set item and ship positions 
-    int item = 0;
+    /*int item = 0;
     for (int r = 0; r < 10; r++){
         for (int c = 0; c < 10; c++){
             if ((map[r][c] == 5)){
@@ -73,7 +90,7 @@ void Node::setMap(int _map[10][10]){
                 item++;
             }
         }
-    }
+    }*/
 
     //setShipsPosition
 

@@ -44,21 +44,28 @@ int main() {
     mapFile.open("map.txt"/*, std::ios::in*/);
     
     int readMap[L][L];
+    int initialRobotsPosition[2];
 
     for (int r = 0; r < 10; r++){
         for (int c = 0; c < 10; c++){
             mapFile >> rawPosition;
             readMap[r][c] = std::stoi(rawPosition);
+
+            if ( readMap[r][c] == 2 ){
+                initialRobotsPosition[0] = r;
+                initialRobotsPosition[1] = c;
+            }
         }
     }
 
-    int initialRobotPosition[2] = {2,2};
-    int shipsFuel [2]= {10, 20};
+    int shipsFuel [2];//= {10, 20};
+    shipsFuel[0] = 10;
+    shipsFuel[1] = 20;
     bool foundItems[2] = {false, false};
     bool drivingShip[2] = {false, false};
     //int itemPositions[2][2] = {{0, 5},{9, 9}};
 
-    Node nod((Node *)nullptr, -1, 0, 0, initialRobotPosition, shipsFuel, foundItems, 
+    Node nod((Node *)nullptr, -1, 0, 0, initialRobotsPosition, shipsFuel, foundItems,  
             drivingShip);
 
     //nod.setMap(map);
@@ -76,16 +83,19 @@ int main() {
     3 := right*/
     //std::cout << "nos.ispossible(int op):  " << nod.isPossible(3) << std::endl << std::endl;
 
-
     Handler hand = Handler(nod);    
 
     auto timePoint1 = std::chrono::high_resolution_clock::now();
 
-    hand.breadthFirstSearch();
-    //hand.uniformCostSearch();
-    //hand.depthFirstSearch();
-    //hand.greedySearch();
-    //hand.aAsteriscSearch();
+    /*
+    0 := Breadth first search
+    1 := Uniform cost search
+    2 := Depth first search
+    3 := Greedy search
+    4 := A* search
+    */
+    hand.search(1);
+
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
     auto timePeriod2 = std::chrono::duration_cast<std::chrono::microseconds> 

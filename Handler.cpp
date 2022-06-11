@@ -6,15 +6,10 @@
 //constructor
 Handler::Handler(Node _rootNode): rootNode(_rootNode){
     std::list <Node> nodeRegistry;
-    Node nod555 = _rootNode;
     nodeRegistry.push_back(rootNode);
-    //std::cout << "rootNode: robotsPosition[0] = " << nodeRegistry.back().getPosition0() << std::endl;
     l.push_front(&rootNode);
     victory = false;
     minCost = 0;
-/*    int dir = 0;
-    std::cout << "isPossible(" << dir << "): " << l.back()->isPossible(dir) 
-        << std::endl;*/
     
 }
 
@@ -40,17 +35,6 @@ Handler::Handler(Node fn, int _initialRobotPosition[2], int _shipsFuel[2], bool 
 //best node expansion for breadthFirstSearch and uniformCostSearch
 //expansion0 avoids going back.
 bool Handler::expansion0(Node* _node){
-    //Node * currentNode = _node;
-    //Node copy = (*_node);
-    //Node* _node = (Node *)&(*nodeRegistry.begin());
-    /*
-    std::cout << "********************" << std::endl;
-    std::cout << "********************" << std::endl;
-    std::cout << "***ALL ITEMS IN NodeRegistry before FOR cycle:***" << std::endl;
-    std::cout << "********************" << std::endl;
-    std::cout << "nodeRegistry.size(): " << nodeRegistry.size() << std::endl;
-    showValsNodeRegistry(nodeRegistry);
-    */
 
     if (_node->goalReached()){
         victory = true;
@@ -86,38 +70,22 @@ bool Handler::expansion0(Node* _node){
             }
         }
              //is possible to expand into the current direction
-
-        nodeRegistry.push_back(((*_node).partialExpansion(direction)));
+        nodeRegistry.push_back( (*_node).partialExpansion(direction) );
         l.push_back(&(nodeRegistry.back()));
 
         std::cout << std::endl << "FOR CYCLE EXPANSION0( "<< direction <<" )" << std::endl;
         std::cout << std::endl << std::endl;
-        
     }
     std::cout << "depth after for:    " << l.back()->getDepth() << std::endl;
-    
-    /*std::cout << "********************" << std::endl;
-    std::cout << "******END FOR*******" << std::endl;
-    std::cout << "********************" << std::endl;
-    std::cout << "***ALL ITEMS IN L***" << std::endl;
-    std::cout << "****BEFORE POP*******" << std::endl;
-    showValsL(l);
-    std::cout << "********************" << std::endl;
-    std::cout << "********************" << std::endl;
-    std::cout << "***ALL ITEMS IN NodeRegistry after FOR cycle***" << std::endl;
-    std::cout << "********************" << std::endl;
-    showValsNodeRegistry(nodeRegistry);*/
-    
-    
-    //l.pop_front();
+   
     l.remove(_node);
-    
     
     std::cout << "l.size() after l.remove(_node) :    " << l.size() << std::endl;
     std::cout << "nodeRegistry.size() at the end of expansion0: " << nodeRegistry.size() << std::endl;
 
     return victory;
 }
+
 
 //best node expansion for depthFirstSearch.
 //expansion2 avoids going back and cycles.
@@ -315,9 +283,12 @@ bool Handler::expansion3(Node* _expNode){
 
 
 void Handler::search(int mode){
-        /*
+    /*
     0 := Breadth first search
     1 := Uniform cost search
+    2 := Depth first search
+    3 := Greedy search
+    4 := A* search
     */
     switch (mode)
     {
@@ -325,7 +296,25 @@ void Handler::search(int mode){
         breadthFirstSearch();
         break;
     
+    case 1:
+        uniformCostSearch();
+        break;
+
+    case 2:
+        depthFirstSearch();
+        break;
+    
+    case 3:
+        greedySearch();
+        break;
+    
+    case 4:
+        aAsteriscSearch();
+        break;
+
+
     default:
+        std::cout << "ERROR IN HANDLER::SEARCH(INT MODE)  " << std::endl;
         break;
     }
 }
@@ -339,7 +328,6 @@ void Handler::breadthFirstSearch(){
     l.push_front(&rootNode);
     victory = false;
 
-    
     int numberOfExpansions = 0;
     nodeRegistry.push_back(rootNode);
     std::cout << "l.size() = " << l.size() << std::endl;
@@ -358,24 +346,7 @@ void Handler::breadthFirstSearch(){
         expansion0(l.front());
         numberOfExpansions++;
         std::cout << "Number of expansions: " << numberOfExpansions << std::endl;
-        //l.front()->showValues();
     }
-
-    //nodeRegistry.back().showValues();
-    //l.front()->showValues();
-    /*std::cout << "********************" << std::endl;
-    expansion0(l.front());
-    l.front()->showValues();
-    
-    std::cout << "********************" << std::endl;
-    expansion0(l.front());
-    l.front()->showValues();
-    std::cout << "********************" << std::endl;
-    expansion0(l.front());
-    
-    l.front()->showValues();
-    std::cout << "********************" << std::endl;
-    std::cout << l.size() << std::endl;*/
 }
 
 
@@ -396,10 +367,8 @@ void Handler::uniformCostSearch(){
         return;
     }
 
-    while(!victory /*&& (numberOfExpansions != 4)*/)
+    while(!victory /*&& (numberOfExpansions != 4)*/ )
     {
-        //std::cout << std::endl << "l.front()->showValues() before expansion: " << std::endl;
-        //l.front()->showValues();
         std::cout << std::endl;
 
         minCost = l.front()->getCost();
@@ -417,11 +386,9 @@ void Handler::uniformCostSearch(){
         std::cout << "expandingNode: " << std::endl;
         expandingNode->showValues();
 
-
         expansion0(expandingNode);
         numberOfExpansions++;
         std::cout << "Number of expansions: " << numberOfExpansions << std::endl;
-        //l.front()->showValues();
     }
 }
 
@@ -478,9 +445,6 @@ void Handler::greedySearch(){
         Node* expandingNode = l.back();
         std::list<Node *>::reverse_iterator it;
         for (it = l.rbegin(); it != l.rend(); ++it){
-            //(*it)->showValues();
-            //std::cout << "p3" << std::endl;
-            //std::cout << "(*it)->h() = " << (*it)->h() << std::endl;
             if( (*it)->h() < minH ){
                 minH = (*it)->h();
                 expandingNode = *it;
@@ -495,7 +459,6 @@ void Handler::greedySearch(){
         expansion2(expandingNode);
         numberOfExpansions++;
         std::cout << "Number of expansions: " << numberOfExpansions << std::endl;
-        //l.front()->showValues();
     }
 }
 
@@ -522,13 +485,9 @@ void Handler::aAsteriscSearch(){
         std::cout  << std::endl;
 
         minF = l.back()->h() + l.back()->getCost();
-        //std::cout << "p2" << std::endl;
         Node* expandingNode = l.back();
         std::list<Node *>::reverse_iterator it;
         for (it = l.rbegin(); it != l.rend(); ++it){
-            //(*it)->showValues();
-            //std::cout << "p3" << std::endl;
-            //std::cout << "(*it)->h() = " << (*it)->h() << std::endl;
             if( ( (*it)->h() + (*it)->getCost() ) < minF ){
                 minF = (*it)->h() + (*it)->getCost();
                 expandingNode = *it;
@@ -543,10 +502,7 @@ void Handler::aAsteriscSearch(){
         expansion3(expandingNode);
         numberOfExpansions++;
         std::cout << "Number of expansions: " << numberOfExpansions << std::endl;
-        //l.front()->showValues();
     }
-
-
 }
 
 
