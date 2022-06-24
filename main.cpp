@@ -58,7 +58,7 @@ int main() {
         }
     }
 
-    int shipsFuel [2];//= {10, 20};
+    int shipsFuel [2];//= {10, 20}; 
     shipsFuel[0] = 10;
     shipsFuel[1] = 20;
     bool foundItems[2] = {false, false};
@@ -70,6 +70,7 @@ int main() {
 
     //nod.setMap(map);
     nod.setMap(readMap);
+    //nod.getDepth();
     
     //std::cout << "nod.h() = " << nod.h() << std::endl;
     nod.showMap();
@@ -94,7 +95,7 @@ int main() {
     3 := Greedy search
     4 := A* search
     */
-    hand.search(1);
+    hand.search(3);
 
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
