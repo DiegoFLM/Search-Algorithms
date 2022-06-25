@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "Node.h"
+#include "Handler.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -66,7 +67,7 @@ int map[10][10] ={{0, 0, 0, 0, 0, 5, 1, 1, 4, 0},
                     {1, 0, 0, 0, 6, 6, 6, 0, 0, 5},
                     };*/
 
-
+//Declarations
 int const L = 10;
 int readMap[L][L];
 
@@ -300,15 +301,11 @@ MainWindow::MainWindow(QWidget *parent)
     shipsFuel[0] = 10;
     shipsFuel[1] = 20;
 
-
-
-
-
-
 }
 
 Node nod((Node *)nullptr, -1, 0, 0, initialRobotsPosition, shipsFuel, foundItems,
         drivingShip);
+
 
 
 
@@ -320,33 +317,44 @@ MainWindow::~MainWindow()
 
 
 
-
-
-/*
-void MainWindow::on_groupBox_clicked()
-{
-    QAbstractButton* selectedOption;
-    readMap[9][9] = 8;
-}*/
-
-
-
 void MainWindow::on_searchButton_clicked()
 {
     nod.setMap(readMap);
-    nod.getDepth();
+
+    Handler hand = Handler(nod);
 
 
 
 
     //labelsList[9][9]->setText( QString::number( nod.getDepth() ) );
 
-    if (ui->radioButton->isChecked()){
+
+    auto timePoint1 = std::chrono::high_resolution_clock::now();
+
+    /*
+        0 := Breadth first search
+        1 := Uniform cost search
+        2 := Depth first search
+        3 := Greedy search
+        4 := A* search
+        */
+    if (ui->radioButton->isChecked()){ //BreadthFirstSearch
         labelsList[9][9]->setText( QString::number (31) );
-    } else if (ui->radioButton_2->isChecked()){
+        hand.search(0);
+    } else if (ui->radioButton_2->isChecked()){ //DepthFirstSearch
         labelsList[9][9]->setText( QString::number (56) );
     }
 
+    auto timePoint2 = std::chrono::high_resolution_clock::now();
+    auto timePeriod2 = std::chrono::duration_cast<std::chrono::microseconds>
+                        (timePoint2 - timePoint1);
+
+    //int integerTime = std::chrono::duration_cast<std::chrono::microseconds>(timePeriod2);
+
+    int integerTime = timePeriod2.count();
+
+    ui->lcdNumber->setDigitCount(8);
+    ui->lcdNumber->display( integerTime );
 
 }
 

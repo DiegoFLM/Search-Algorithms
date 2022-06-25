@@ -95,13 +95,13 @@ int main() {
     3 := Greedy search
     4 := A* search
     */
-    hand.search(3);
+    hand.search(0);
 
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
-    auto timePeriod2 = std::chrono::duration_cast<std::chrono::microseconds> 
+    auto timePeriod = std::chrono::duration_cast<std::chrono::microseconds> 
                         (timePoint2 - timePoint1);
-    std::cout << "search time [micro s]:  " << timePeriod2.count() << std::endl;
+    std::cout << "search time [micro s]:  " << timePeriod.count() << std::endl;
 
 
    mapFile.close();

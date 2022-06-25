@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -138,7 +139,12 @@ public:
     QRadioButton *radioButton_5;
     QLabel *nonInformedSearch;
     QLabel *informedSearch;
-    QPushButton *loadMapButton;
+    QLCDNumber *lcdNumber;
+    QLabel *label_101;
+    QLabel *label_102;
+    QLCDNumber *lcdNumber_2;
+    QLabel *label_103;
+    QLCDNumber *lcdNumber_3;
     QMenuBar *menubar;
     QToolBar *toolBar;
     QToolBar *toolBar_2;
@@ -147,7 +153,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(703, 403);
+        MainWindow->resize(703, 536);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayoutWidget = new QWidget(centralwidget);
@@ -683,9 +689,24 @@ public:
         informedSearch = new QLabel(groupBox);
         informedSearch->setObjectName(QString::fromUtf8("informedSearch"));
         informedSearch->setGeometry(QRect(10, 190, 131, 21));
-        loadMapButton = new QPushButton(centralwidget);
-        loadMapButton->setObjectName(QString::fromUtf8("loadMapButton"));
-        loadMapButton->setGeometry(QRect(130, 320, 89, 25));
+        lcdNumber = new QLCDNumber(centralwidget);
+        lcdNumber->setObjectName(QString::fromUtf8("lcdNumber"));
+        lcdNumber->setGeometry(QRect(250, 340, 161, 41));
+        label_101 = new QLabel(centralwidget);
+        label_101->setObjectName(QString::fromUtf8("label_101"));
+        label_101->setGeometry(QRect(10, 340, 231, 41));
+        label_102 = new QLabel(centralwidget);
+        label_102->setObjectName(QString::fromUtf8("label_102"));
+        label_102->setGeometry(QRect(10, 390, 231, 41));
+        lcdNumber_2 = new QLCDNumber(centralwidget);
+        lcdNumber_2->setObjectName(QString::fromUtf8("lcdNumber_2"));
+        lcdNumber_2->setGeometry(QRect(250, 390, 161, 41));
+        label_103 = new QLabel(centralwidget);
+        label_103->setObjectName(QString::fromUtf8("label_103"));
+        label_103->setGeometry(QRect(10, 440, 231, 41));
+        lcdNumber_3 = new QLCDNumber(centralwidget);
+        lcdNumber_3->setObjectName(QString::fromUtf8("lcdNumber_3"));
+        lcdNumber_3->setGeometry(QRect(250, 440, 161, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -815,7 +836,9 @@ public:
         radioButton_5->setText(QCoreApplication::translate("MainWindow", "A* Search", nullptr));
         nonInformedSearch->setText(QCoreApplication::translate("MainWindow", "Non informed search:", nullptr));
         informedSearch->setText(QCoreApplication::translate("MainWindow", "Informed search:", nullptr));
-        loadMapButton->setText(QCoreApplication::translate("MainWindow", "Load Map", nullptr));
+        label_101->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Time [microseconds]:</span></p></body></html>", nullptr));
+        label_102->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Depth: </span></p></body></html>", nullptr));
+        label_103->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Cost: </span></p></body></html>", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
         toolBar_2->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar_2", nullptr));
     } // retranslateUi

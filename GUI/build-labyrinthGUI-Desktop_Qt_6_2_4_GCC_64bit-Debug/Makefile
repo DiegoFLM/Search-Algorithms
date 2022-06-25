@@ -52,10 +52,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../labyrinthGUI/Node.cpp \
+SOURCES       = ../labyrinthGUI/Handler.cpp \
+		../labyrinthGUI/Node.cpp \
 		../labyrinthGUI/main.cpp \
 		../labyrinthGUI/mainwindow.cpp moc_mainwindow.cpp
-OBJECTS       = Node.o \
+OBJECTS       = Handler.o \
+		Node.o \
 		main.o \
 		mainwindow.o \
 		moc_mainwindow.o
@@ -198,8 +200,10 @@ DIST          = ../labyrinthGUI/map.txt \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/exceptions.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/yacc.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/lex.prf \
-		../labyrinthGUI/labyrinthGUI.pro ../labyrinthGUI/Node.h \
-		../labyrinthGUI/mainwindow.h ../labyrinthGUI/Node.cpp \
+		../labyrinthGUI/labyrinthGUI.pro ../labyrinthGUI/Handler.h \
+		../labyrinthGUI/Node.h \
+		../labyrinthGUI/mainwindow.h ../labyrinthGUI/Handler.cpp \
+		../labyrinthGUI/Node.cpp \
 		../labyrinthGUI/main.cpp \
 		../labyrinthGUI/mainwindow.cpp
 QMAKE_TARGET  = labyrinthGUI
@@ -513,8 +517,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../labyrinthGUI/Node.h ../labyrinthGUI/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../labyrinthGUI/Node.cpp ../labyrinthGUI/main.cpp ../labyrinthGUI/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../labyrinthGUI/Handler.h ../labyrinthGUI/Node.h ../labyrinthGUI/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../labyrinthGUI/Handler.cpp ../labyrinthGUI/Node.cpp ../labyrinthGUI/main.cpp ../labyrinthGUI/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../labyrinthGUI/mainwindow.ui $(DISTDIR)/
 
 
@@ -704,6 +708,10 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
+
+Handler.o: ../labyrinthGUI/Handler.cpp ../labyrinthGUI/Handler.h \
+		../labyrinthGUI/Node.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Handler.o ../labyrinthGUI/Handler.cpp
 
 Node.o: ../labyrinthGUI/Node.cpp ../labyrinthGUI/Node.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Node.o ../labyrinthGUI/Node.cpp
@@ -997,7 +1005,54 @@ mainwindow.o: ../labyrinthGUI/mainwindow.cpp ../labyrinthGUI/mainwindow.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qicon.h \
 		ui_mainwindow.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/QVariant \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QApplication \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qapplication.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qeventloop.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qfuture.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qmutex.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qresultstore.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qfuture_impl.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qthreadpool.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qthread.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qdeadlinetimer.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qrunnable.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qexception.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qpromise.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qguiapplication.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qinputmethod.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qlocale.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QGridLayout \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qlayout.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QGroupBox \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qframe.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QLabel \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qlabel.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qpicture.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qtextdocument.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QMenuBar \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qmenu.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qaction.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QPushButton \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QRadioButton \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qradiobutton.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QToolBar \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qtoolbar.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QWidget \
 		../labyrinthGUI/Node.h \
+		../labyrinthGUI/Handler.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/QDataStream \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/QFile \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qfile.h \
@@ -1008,7 +1063,6 @@ mainwindow.o: ../labyrinthGUI/mainwindow.cpp ../labyrinthGUI/mainwindow.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qfileinfo.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qdatetime.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qcalendar.h \
-		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qlocale.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/QFileInfo
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../labyrinthGUI/mainwindow.cpp
 
