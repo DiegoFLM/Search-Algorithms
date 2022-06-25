@@ -11,6 +11,7 @@ email: diego.ledesma@correounivalle.edu.co
 #include <iterator>
 #include <list>
 #include <chrono>
+#include <vector>
 
 
 #include "Node.h"
@@ -24,6 +25,8 @@ class Handler{
         std::list <Node> nodeRegistry;
 
         int minCost;
+
+        std::vector <Node*> solutionPath;
 
 
     public:
@@ -40,9 +43,14 @@ class Handler{
         void greedySearch(); //best-first search
         void aAsteriscSearch();
         Node* getFront();
-        void printWay(Node * _node);
+        void printWay(Node* _node);
+        void makeWay(Node* _vicNode);
         void showValsL(std::list<Node *> lst);
         void showValsNodeRegistry(std::list<Node> lst);
+
+        Node* getVicWayNode(int position);
+        int getRobotsPosition0(int posNode);
+        int getRobotsPosition1(int posNode);
 };
 
 #else

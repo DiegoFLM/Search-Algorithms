@@ -10,6 +10,8 @@ Handler::Handler(Node _rootNode): rootNode(_rootNode){
     l.push_front(&rootNode);
     victory = false;
     minCost = 0;
+
+    std::vector<Node *> solutionPath;
     
 }
 
@@ -43,6 +45,7 @@ bool Handler::expansion0(Node* _node){
         std::cout << "l.size():     " << l.size() << std::endl;
         
         printWay(_node);
+        makeWay(_node);
         std::cout << "root nodes father: " << nodeRegistry.front().getFather() << std::endl;
         return victory;
     }
@@ -100,6 +103,7 @@ bool Handler::expansion2(Node* _expNode){
         std::cout << "l.size():     " << l.size() << std::endl;
         std::cout << "root nodes father: " << nodeRegistry.front().getFather() << std::endl;
         printWay(_expNode);
+        makeWay(_expNode);
         return victory;
     }
 
@@ -196,6 +200,7 @@ bool Handler::expansion3(Node* _expNode){
         std::cout << "l.size():     " << l.size() << std::endl;
         std::cout << "root nodes father: " << nodeRegistry.front().getFather() << std::endl;
         printWay(_expNode);
+        makeWay(_expNode);
         return victory;
     }
 
@@ -530,11 +535,29 @@ void Handler::printWay(Node *_node){
     std::cout << "************" << std::endl;
     std::cout << "start point: " << std::endl;
     std::cout << "************" << std::endl;
-    std::cout << "depth = " << current_point->getDepth() <<std::endl;
+    std::cout << "depth = " << current_point->getDepth() << std::endl;
+    std::cout << "cost = " << current_point->getCost() << std::endl;
     std::cout << "h() = " << current_point->h() <<std::endl;
     std::cout << "point[0] = " << current_point->getPosition0() << std::endl;
     std::cout << "point[1] = " << current_point->getPosition1() << std::endl;
 }
+
+
+void Handler::makeWay(Node* _vicNode){
+    Node * current_point = _vicNode;
+    Node * father = _vicNode -> getFather();
+    
+    for(int c = 0; c <= _vicNode->getDepth(); c++ ){
+        std::vector<Node *>::iterator iter;
+        iter = solutionPath.begin();
+        solutionPath.insert(iter, current_point);
+
+        father = current_point->getFather();
+        current_point = father;
+    }
+}
+
+
 
 
 void Handler::showValsL(std::list<Node *> lst)
@@ -552,6 +575,16 @@ void Handler::showValsNodeRegistry(std::list<Node> lst){
     std::cout << '\n';
 }
 
+Node* Handler::getVicWayNode(int position){
+    return solutionPath.at(position);
+}
+
+int Handler::getRobotsPosition0(int posNode){
+    return solutionPath.at(posNode)->getPosition0();
+}
 
 
+int Handler::getRobotsPosition1(int posNode){
+    return solutionPath.at(posNode)->getPosition1();
+}
 

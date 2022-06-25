@@ -103,6 +103,8 @@ int main() {
                         (timePoint2 - timePoint1);
     std::cout << "search time [micro s]:  " << timePeriod.count() << std::endl;
 
+    std::cout << "robotsPosition0 of father (from victoryPath): " 
+        << hand.getRobotsPosition0(0) << std::endl;
 
    mapFile.close();
 }
