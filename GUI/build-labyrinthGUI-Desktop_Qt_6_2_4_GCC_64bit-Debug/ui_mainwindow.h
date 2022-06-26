@@ -145,6 +145,7 @@ public:
     QLCDNumber *lcdNumber_2;
     QLabel *label_103;
     QLCDNumber *lcdNumber_3;
+    QLabel *testLab;
     QMenuBar *menubar;
     QToolBar *toolBar;
     QToolBar *toolBar_2;
@@ -707,6 +708,9 @@ public:
         lcdNumber_3 = new QLCDNumber(centralwidget);
         lcdNumber_3->setObjectName(QString::fromUtf8("lcdNumber_3"));
         lcdNumber_3->setGeometry(QRect(250, 440, 161, 41));
+        testLab = new QLabel(centralwidget);
+        testLab->setObjectName(QString::fromUtf8("testLab"));
+        testLab->setGeometry(QRect(480, 390, 67, 17));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -839,6 +843,7 @@ public:
         label_101->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Time [microseconds]:</span></p></body></html>", nullptr));
         label_102->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Depth: </span></p></body></html>", nullptr));
         label_103->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Cost: </span></p></body></html>", nullptr));
+        testLab->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
         toolBar_2->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar_2", nullptr));
     } // retranslateUi

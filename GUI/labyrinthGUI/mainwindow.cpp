@@ -339,10 +339,15 @@ void MainWindow::on_searchButton_clicked()
         4 := A* search
         */
     if (ui->radioButton->isChecked()){ //BreadthFirstSearch
-        labelsList[9][9]->setText( QString::number (31) );
         hand.search(0);
     } else if (ui->radioButton_2->isChecked()){ //DepthFirstSearch
-        labelsList[9][9]->setText( QString::number (56) );
+        hand.search(1);
+    } else if (ui->radioButton_3->isChecked()){ //DepthFirstSearch
+        hand.search(2);
+    } else if (ui->radioButton_4->isChecked()){ //DepthFirstSearch
+        hand.search(3);
+    } else if (ui->radioButton_5->isChecked()){ //DepthFirstSearch
+        hand.search(4);
     }
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
@@ -355,6 +360,12 @@ void MainWindow::on_searchButton_clicked()
 
     ui->lcdNumber->setDigitCount(8);
     ui->lcdNumber->display( integerTime );
+
+    ui->lcdNumber_2->setDigitCount(3);
+    ui->lcdNumber_2->display( hand.getVicWayNode( hand.getVictorySize() - 1 )->getDepth() );
+
+    ui->lcdNumber_3->setDigitCount(3);
+    ui->lcdNumber_3->display( hand.getVicWayNode( hand.getVictorySize() - 1 )->getCost() );
 
 }
 

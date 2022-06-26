@@ -1035,6 +1035,8 @@ mainwindow.o: ../labyrinthGUI/mainwindow.cpp ../labyrinthGUI/mainwindow.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QGroupBox \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qgroupbox.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qframe.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QLCDNumber \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qlcdnumber.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QLabel \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qlabel.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qpicture.h \
