@@ -27,6 +27,8 @@ class Handler{
         int minCost;
 
         std::vector <Node*> solutionPath;
+        int victorysize;
+        std::chrono::microseconds solutionTime;
 
 
     public:
@@ -49,6 +51,9 @@ class Handler{
         void showValsNodeRegistry(std::list<Node> lst);
 
         Node* getVicWayNode(int position);
+        int getVictorySize();
+        int getSolutionTime();
+
         int getRobotsPosition0(int posNode);
         int getRobotsPosition1(int posNode);
 };

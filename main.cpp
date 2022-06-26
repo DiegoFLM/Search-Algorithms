@@ -95,16 +95,23 @@ int main() {
     3 := Greedy search
     4 := A* search
     */
-    hand.search(0);
 
+    hand.search(3);
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
     auto timePeriod = std::chrono::duration_cast<std::chrono::microseconds> 
                         (timePoint2 - timePoint1);
     std::cout << "search time [micro s]:  " << timePeriod.count() << std::endl;
 
-    std::cout << "robotsPosition0 of father (from victoryPath): " 
-        << hand.getRobotsPosition0(0) << std::endl;
+    std::cout << "search time (from handler) [micro s]:  " << hand.getSolutionTime() << std::endl;
+
+    for (int c = 0; c < hand.getVictorySize(); c++){
+        std::cout << " 0000000000000000000000000000000 " << std::endl;
+        std::cout << "c: " << c << std::endl;
+        std::cout << "depth: " << hand.getVicWayNode(c)->getDepth() << std::endl;
+        std::cout << "row:    " << hand.getVicWayNode(c)->getPosition0() << std::endl;
+        std::cout << "column: " << hand.getVicWayNode(c)->getPosition1() << std::endl;
+    }
 
    mapFile.close();
 }

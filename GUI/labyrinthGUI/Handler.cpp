@@ -288,6 +288,10 @@ bool Handler::expansion3(Node* _expNode){
 
 
 void Handler::search(int mode){
+    
+    auto timePoint1 = std::chrono::high_resolution_clock::now();
+
+    
     /*
     0 := Breadth first search
     1 := Uniform cost search
@@ -322,6 +326,10 @@ void Handler::search(int mode){
         std::cout << "ERROR IN HANDLER::SEARCH(INT MODE)  " << std::endl;
         break;
     }
+
+    auto timePoint2 = std::chrono::high_resolution_clock::now();
+    solutionTime = std::chrono::duration_cast<std::chrono::microseconds> 
+                        (timePoint2 - timePoint1);
 }
 
 
@@ -525,8 +533,8 @@ void Handler::printWay(Node *_node){
         std::cout << "depth = " << current_point->getDepth() <<std::endl;
         std::cout << "cost = " << current_point->getCost() <<std::endl;
         std::cout << "h() = " << current_point->h() <<std::endl;
-        std::cout << "point[0] = " << current_point->getPosition0() << std::endl;
-        std::cout << "point[1] = " << current_point->getPosition1() << std::endl;
+        std::cout << "Position[0] = " << current_point->getPosition0() << std::endl;
+        std::cout << "Position[1] = " << current_point->getPosition1() << std::endl;
 
         father = current_point->getFather();
         current_point = father;
@@ -544,6 +552,8 @@ void Handler::printWay(Node *_node){
 
 
 void Handler::makeWay(Node* _vicNode){
+    victorysize = _vicNode->getDepth() + 1;
+
     Node * current_point = _vicNode;
     Node * father = _vicNode -> getFather();
     
@@ -578,6 +588,15 @@ void Handler::showValsNodeRegistry(std::list<Node> lst){
 Node* Handler::getVicWayNode(int position){
     return solutionPath.at(position);
 }
+
+int Handler::getVictorySize(){
+    return victorysize;
+}
+
+int Handler::getSolutionTime(){
+    return solutionTime.count();
+}
+
 
 int Handler::getRobotsPosition0(int posNode){
     return solutionPath.at(posNode)->getPosition0();
