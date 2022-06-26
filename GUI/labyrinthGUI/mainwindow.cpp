@@ -118,7 +118,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     ui->setupUi(this);
-
+    timeLapse = new QTimer(this);
+    connect(timeLapse, SIGNAL(timeout()), this, SLOT(onTimeEnd()));
 
 
 
@@ -245,7 +246,12 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     //QFile qfile_map("../other files/map.txt");
-    QFile qfile_map("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/infoTools/QT/testP0/map.txt");
+    //QFile qfile_map("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/infoTools/QT/testP0/map.txt");
+    //QFile qfile_map("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/map.txt");
+    QFile qfile_map("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/map.txt");
+    //QFile qfile_map("././././Semestre6/AI/Project/pCode/GUI/map.txt");
+
+
 
     qfile_map.open(QIODevice::ReadOnly /*| QIODevice::Text*/);
     //QDataStream in(&qfile_map);
@@ -305,7 +311,12 @@ MainWindow::MainWindow(QWidget *parent)
 
 Node nod((Node *)nullptr, -1, 0, 0, initialRobotsPosition, shipsFuel, foundItems,
         drivingShip);
+//Handler hand = Handler(nod);
 
+int var = 0;
+std::vector<Node*> victoryVec;
+
+std::vector<std::vector <int>> vicMatrixPositions;
 
 
 
@@ -316,18 +327,11 @@ MainWindow::~MainWindow()
 }
 
 
-
 void MainWindow::on_searchButton_clicked()
 {
     nod.setMap(readMap);
 
     Handler hand = Handler(nod);
-
-
-
-
-    //labelsList[9][9]->setText( QString::number( nod.getDepth() ) );
-
 
     auto timePoint1 = std::chrono::high_resolution_clock::now();
 
@@ -338,23 +342,22 @@ void MainWindow::on_searchButton_clicked()
         3 := Greedy search
         4 := A* search
         */
-    if (ui->radioButton->isChecked()){ //BreadthFirstSearch
+    if (ui->radioButton->isChecked()){ //Breadth First Search
         hand.search(0);
-    } else if (ui->radioButton_2->isChecked()){ //DepthFirstSearch
+    } else if (ui->radioButton_2->isChecked()){ //Uniform Cost Search
         hand.search(1);
-    } else if (ui->radioButton_3->isChecked()){ //DepthFirstSearch
+    } else if (ui->radioButton_3->isChecked()){ //Depth First Search
         hand.search(2);
-    } else if (ui->radioButton_4->isChecked()){ //DepthFirstSearch
+    } else if (ui->radioButton_4->isChecked()){ //Greedy Search
         hand.search(3);
-    } else if (ui->radioButton_5->isChecked()){ //DepthFirstSearch
+    } else if (ui->radioButton_5->isChecked()){ //A* Search
         hand.search(4);
     }
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
+
     auto timePeriod2 = std::chrono::duration_cast<std::chrono::microseconds>
                         (timePoint2 - timePoint1);
-
-    //int integerTime = std::chrono::duration_cast<std::chrono::microseconds>(timePeriod2);
 
     int integerTime = timePeriod2.count();
 
@@ -366,6 +369,34 @@ void MainWindow::on_searchButton_clicked()
 
     ui->lcdNumber_3->setDigitCount(3);
     ui->lcdNumber_3->display( hand.getVicWayNode( hand.getVictorySize() - 1 )->getCost() );
+
+    victoryVec = {};
+    for(int c = 0; c < hand.getVictorySize(); c++){
+        victoryVec.push_back(hand.getVicWayNode(c));
+
+        vicMatrixPositions.push_back( {hand.getVicWayNode(c)->getPosition0() ,hand.getVicWayNode(c)->getPosition1()  } );
+    }
+
+    timeLapse->start(1000);
+}
+
+
+
+void MainWindow::onTimeEnd()
+{
+
+    if (var == 0){
+        var = 1;
+        ui->testLab->setText( QString::number(var) );
+    }else if (var == 1) {
+        var = 0;
+        ui->testLab->setText( QString::number(var) );
+    }
+
+
+    /*for(int c = 0; c < hand.getVictorySize(); c++){
+
+    }*/
 
 }
 

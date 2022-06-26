@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,17 +16,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
 private slots:
 
-
-
-    //ns
-
     void on_searchButton_clicked();
+    void onTimeEnd();
 
 private:
     Ui::MainWindow *ui;
-
+    QTimer* timeLapse;
 
 
 };

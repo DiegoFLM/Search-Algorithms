@@ -146,6 +146,7 @@ public:
     QLabel *label_103;
     QLCDNumber *lcdNumber_3;
     QLabel *testLab;
+    QLabel *label_104;
     QMenuBar *menubar;
     QToolBar *toolBar;
     QToolBar *toolBar_2;
@@ -711,6 +712,9 @@ public:
         testLab = new QLabel(centralwidget);
         testLab->setObjectName(QString::fromUtf8("testLab"));
         testLab->setGeometry(QRect(480, 390, 67, 17));
+        label_104 = new QLabel(centralwidget);
+        label_104->setObjectName(QString::fromUtf8("label_104"));
+        label_104->setGeometry(QRect(80, 10, 261, 21));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -844,6 +848,7 @@ public:
         label_102->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Depth: </span></p></body></html>", nullptr));
         label_103->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Cost: </span></p></body></html>", nullptr));
         testLab->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_104->setText(QCoreApplication::translate("MainWindow", "Operators order: up, left, down, right.", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
         toolBar_2->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar_2", nullptr));
     } // retranslateUi

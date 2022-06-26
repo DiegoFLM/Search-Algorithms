@@ -73,7 +73,7 @@ int main() {
     //nod.getDepth();
     
     //std::cout << "nod.h() = " << nod.h() << std::endl;
-    nod.showMap();
+    //nod.showMap();
 
     std::cout << std::endl << std::endl;
 
@@ -96,7 +96,7 @@ int main() {
     4 := A* search
     */
 
-    hand.search(3);
+    hand.search(0);
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
     auto timePeriod = std::chrono::duration_cast<std::chrono::microseconds> 
@@ -107,7 +107,7 @@ int main() {
 
     for (int c = 0; c < hand.getVictorySize(); c++){
         std::cout << " 0000000000000000000000000000000 " << std::endl;
-        std::cout << "c: " << c << std::endl;
+        std::cout << "cost: " << hand.getVicWayNode(c)->getCost() << std::endl;
         std::cout << "depth: " << hand.getVicWayNode(c)->getDepth() << std::endl;
         std::cout << "row:    " << hand.getVicWayNode(c)->getPosition0() << std::endl;
         std::cout << "column: " << hand.getVicWayNode(c)->getPosition1() << std::endl;
