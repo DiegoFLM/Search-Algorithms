@@ -7,11 +7,22 @@
 
 Node::Node(Node * _father, int _motherOp, int _depth, int _cost, int _robotsPosition[2], 
             int _shipsFuel[2], bool _foundItems[2], bool _usingShip[2]):
-            father(_father), motherOp(_motherOp), depth(_depth), cost(_cost),
+            father(_father), motherOp(_motherOp), depth(_depth), cost(_cost) /*,
             robotsPosition({_robotsPosition[0], _robotsPosition[1]}),
             shipsFuel({_shipsFuel[0], _shipsFuel[1]}),
             foundItems({_foundItems[0], _foundItems[1]}), 
-            usingShip({_usingShip[0], _usingShip[1]}) {
+            usingShip({_usingShip[0], _usingShip[1]}) */{
+
+                robotsPosition[0] = _robotsPosition[0];
+                robotsPosition[1] = _robotsPosition[1];
+                shipsFuel[0] = _shipsFuel[0];
+                shipsFuel[1] = _shipsFuel[1];
+                foundItems[0] = _foundItems[0];
+                foundItems[1] = _foundItems[1];
+                usingShip[0] = _usingShip[0];
+                usingShip[1] = _usingShip[1];
+
+
                 this->showValues();
                 std::cout << "CREATING NODE WITH: " << std::endl;
                 std::cout << "_shipsFuel[0] = " << _shipsFuel[0] << std::endl;

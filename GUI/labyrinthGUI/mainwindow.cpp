@@ -52,6 +52,15 @@ void readFile( QString path ){
     file.close();
 }
 
+/*
+0 si es una casilla libre
+1 si es un muro
+2 si el punto de inicio
+3 si es la nave 1
+4 si es la nave 2
+5 si es un ítem
+6 si es una casilla con aceite
+*/
 
 
 /*
@@ -76,13 +85,10 @@ QLabel* labelsList[10][10];
 
 int initialRobotsPosition[2];
 
-int shipsFuel [2];//= {10, 20};
+int shipsFuel [2]= {10, 20};
 
 bool foundItems[2] = {false, false};
 bool drivingShip[2] = {false, false};
-
-
-
 
 
 
@@ -92,38 +98,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    //int const L = 10;
-    /*
-    0 si es una casilla libre
-    1 si es un muro
-    2 si el punto de inicio
-    3 si es la nave 1
-    4 si es la nave 2
-    5 si es un ítem
-    6 si es una casilla con aceite
-    */
-
-    /*int map[L][L] ={{0, 0, 0, 0, 0, 5, 1, 1, 4, 0},
-                    {0, 1, 1, 1, 1, 0, 1, 1, 1, 0},
-                    {0, 0, 0, 6, 6, 0, 0, 0, 0, 0},
-                    {1, 6, 1, 1, 1, 1, 0, 1, 1, 6},
-                    {1, 6, 1, 1, 1, 1, 0, 1, 1, 6},
-                    {1, 6, 1, 0, 0, 0, 0, 0, 0, 3},
-                    {1, 6, 1, 0, 1, 1, 1, 1, 0, 1},
-                    {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-                    {1, 0, 1, 0, 1, 0, 1, 1, 1, 1},
-                    {1, 0, 0, 0, 6, 6, 6, 0, 0, 5},
-                    };*/
-
-
-
     ui->setupUi(this);
     timeLapse = new QTimer(this);
     connect(timeLapse, SIGNAL(timeout()), this, SLOT(onTimeEnd()));
 
 
-
-    //QLabel* labelsList[10][10];
     labelsList[0][0] = ui->label;
     labelsList[0][1] = ui->label_2;
     labelsList[0][2] = ui->label_3;
@@ -245,12 +224,7 @@ MainWindow::MainWindow(QWidget *parent)
     QString qstr;
 
 
-    //QFile qfile_map("../other files/map.txt");
-    //QFile qfile_map("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/infoTools/QT/testP0/map.txt");
-    //QFile qfile_map("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/map.txt");
     QFile qfile_map("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/map.txt");
-    //QFile qfile_map("././././Semestre6/AI/Project/pCode/GUI/map.txt");
-
 
 
     qfile_map.open(QIODevice::ReadOnly /*| QIODevice::Text*/);
@@ -318,7 +292,8 @@ std::vector<Node*> victoryVec;
 
 std::vector<std::vector <int>> vicMatrixPositions;
 
-
+int c = 0;
+std::vector <int> lastPosition = {initialRobotsPosition[0],initialRobotsPosition[1]};
 
 
 MainWindow::~MainWindow()
@@ -329,6 +304,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_searchButton_clicked()
 {
+    for (int row = 0; row < 10; row++){
+        for (int col = 0; col < 10; col++){
+            labelsList[row][col]->setText( QString::number(readMap[row][col]) );
+        }
+    }
+
+
+
     nod.setMap(readMap);
 
     Handler hand = Handler(nod);
@@ -370,39 +353,49 @@ void MainWindow::on_searchButton_clicked()
     ui->lcdNumber_3->setDigitCount(3);
     ui->lcdNumber_3->display( hand.getVicWayNode( hand.getVictorySize() - 1 )->getCost() );
 
-    victoryVec = {};
-    for(int c = 0; c < hand.getVictorySize(); c++){
-        victoryVec.push_back(hand.getVicWayNode(c));
+    //std::vector<std::vector <int>> vicMatrixPositions;
+    c = 0;
+    lastPosition = {initialRobotsPosition[0],initialRobotsPosition[1]};
 
-        vicMatrixPositions.push_back( {hand.getVicWayNode(c)->getPosition0() ,hand.getVicWayNode(c)->getPosition1()  } );
+    victoryVec.clear();
+    vicMatrixPositions.clear();
+    for(int i = 0; i < hand.getVictorySize(); i++){
+        victoryVec.push_back(hand.getVicWayNode(i));
+
+        vicMatrixPositions.push_back( {hand.getVicWayNode(i)->getPosition0() ,hand.getVicWayNode(i)->getPosition1()  } );
+        //vicMatrixPositions.at(c).at(0) = 5;
     }
 
-    timeLapse->start(1000);
+    timeLapse->start(200);
 }
+
+
 
 
 
 void MainWindow::onTimeEnd()
 {
+    timeLapse->setInterval( (ui->doubleSpinBox->value()) * 1000 );
 
-    if (var == 0){
-        var = 1;
-        ui->testLab->setText( QString::number(var) );
-    }else if (var == 1) {
-        var = 0;
-        ui->testLab->setText( QString::number(var) );
+
+    if (c == 0){
+        labelsList[initialRobotsPosition[0]][initialRobotsPosition[1]]
+                ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/terminator.png") );
+
+        c++;
+    }else if( c < vicMatrixPositions.size() ){
+        labelsList[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]
+                ->setText( QString::number(readMap[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]) );
+        //labelsList[vicMatrixPositions.at(c).at(0)][vicMatrixPositions.at(c).at(1)]->setText( "9" );
+        labelsList[vicMatrixPositions.at(c).at(0)][vicMatrixPositions.at(c).at(1)]
+                ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/terminator.png") );
+                //->setPixmap( QPixmap("/home/diegoflm/Pictures/rs1.png") );
+
+        labelsList[vicMatrixPositions.at(c).at(0)][vicMatrixPositions.at(c).at(1)]->show();
+        c++;
     }
 
-
-    /*for(int c = 0; c < hand.getVictorySize(); c++){
-
-    }*/
-
 }
-
-
-
-
 
 
 

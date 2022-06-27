@@ -63,6 +63,9 @@ OBJECTS       = Handler.o \
 		moc_mainwindow.o
 DIST          = ../labyrinthGUI/map.txt \
 		../labyrinthGUI/map.txt \
+		../labyrinthGUI/rs1.png \
+		../labyrinthGUI/rs2.png \
+		../labyrinthGUI/terminator.png \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/common/unix.conf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/common/linux.conf \
@@ -180,6 +183,7 @@ DIST          = ../labyrinthGUI/map.txt \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/qt_config.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/spec_post.prf \
+		../labyrinthGUI/.qmake.stash \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/toolchain.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/default_pre.prf \
@@ -334,6 +338,7 @@ Makefile: ../labyrinthGUI/labyrinthGUI.pro /home/diegoflm/Qt/6.2.4/gcc_64/mkspec
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/qt_config.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/toolchain.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/default_pre.prf \
@@ -476,6 +481,7 @@ Makefile: ../labyrinthGUI/labyrinthGUI.pro /home/diegoflm/Qt/6.2.4/gcc_64/mkspec
 /home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/qt_config.prf:
 /home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/toolchain.prf:
 /home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/default_pre.prf:

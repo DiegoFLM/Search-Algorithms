@@ -96,7 +96,7 @@ int main() {
     4 := A* search
     */
 
-    hand.search(0);
+    hand.search(2);
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
     auto timePeriod = std::chrono::duration_cast<std::chrono::microseconds> 
@@ -105,13 +105,13 @@ int main() {
 
     std::cout << "search time (from handler) [micro s]:  " << hand.getSolutionTime() << std::endl;
 
-    for (int c = 0; c < hand.getVictorySize(); c++){
+    /*for (int c = 0; c < hand.getVictorySize(); c++){
         std::cout << " 0000000000000000000000000000000 " << std::endl;
         std::cout << "cost: " << hand.getVicWayNode(c)->getCost() << std::endl;
         std::cout << "depth: " << hand.getVicWayNode(c)->getDepth() << std::endl;
         std::cout << "row:    " << hand.getVicWayNode(c)->getPosition0() << std::endl;
         std::cout << "column: " << hand.getVicWayNode(c)->getPosition1() << std::endl;
-    }
+    }*/
 
    mapFile.close();
 }

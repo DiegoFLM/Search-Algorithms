@@ -44,16 +44,16 @@ bool Handler::expansion0(Node* _node){
         std::cout << "victory depth:    " << _node->getDepth() << std::endl;
         std::cout << "l.size():     " << l.size() << std::endl;
         
-        printWay(_node);
+        //printWay(_node);
         makeWay(_node);
         std::cout << "root nodes father: " << nodeRegistry.front().getFather() << std::endl;
         return victory;
     }
 
     for(int direction = 0; direction < 4; direction++){
-        std::cout << "l.size():     " << l.size() << std::endl;
+        /*std::cout << "l.size():     " << l.size() << std::endl;
         std::cout << "is possible (" << direction << "): " << _node->isPossible(direction) 
-        << std::endl;
+        << std::endl;*/
 
         if ( !(_node->isPossible(direction)) ){
             std::cout << std::endl << "NOT GOING IN DIRECTION: " << direction << std::endl;
@@ -76,16 +76,16 @@ bool Handler::expansion0(Node* _node){
         nodeRegistry.push_back( (*_node).partialExpansion(direction) );
         l.push_back(&(nodeRegistry.back()));
 
-        std::cout << std::endl << "FOR CYCLE EXPANSION0( "<< direction <<" )" << std::endl;
-        std::cout << std::endl << std::endl;
+        /*std::cout << std::endl << "FOR CYCLE EXPANSION0( "<< direction <<" )" << std::endl;
+        std::cout << std::endl << std::endl;*/
     }
     std::cout << "depth after for:    " << l.back()->getDepth() << std::endl;
    
     l.remove(_node);
     
-    std::cout << "l.size() after l.remove(_node) :    " << l.size() << std::endl;
+    /*std::cout << "l.size() after l.remove(_node) :    " << l.size() << std::endl;
     std::cout << "nodeRegistry.size() at the end of expansion0: " << nodeRegistry.size() << std::endl;
-
+*/
     return victory;
 }
 
@@ -102,7 +102,7 @@ bool Handler::expansion2(Node* _expNode){
         std::cout << "victory depth:    " << _expNode->getDepth() << std::endl;
         std::cout << "l.size():     " << l.size() << std::endl;
         std::cout << "root nodes father: " << nodeRegistry.front().getFather() << std::endl;
-        printWay(_expNode);
+        //printWay(_expNode);
         makeWay(_expNode);
         return victory;
     }
@@ -124,10 +124,10 @@ bool Handler::expansion2(Node* _expNode){
                 std::cout << "***AVOIDING CYCLES WORKING***" << std::endl;
                 
                 l.remove(_expNode);
-    
+                /*
                 std::cout << "l.size() after l.remove(_expNode) :    " << l.size() << std::endl;
                 std::cout << "nodeRegistry.size() at the end of expansion0: " << nodeRegistry.size() << std::endl;
-                std::cout << "EXITING WHILE OF ANCESTORS: " << std::endl;
+                std::cout << "EXITING WHILE OF ANCESTORS: " << std::endl; */
                 return victory;
             }
             /*std::cout << "CHANGE OF ANCESTOR: " << std::endl;
@@ -143,9 +143,9 @@ bool Handler::expansion2(Node* _expNode){
     }
 
     for(int direction = 3; direction >= 0; direction--){
-        std::cout << "l.size():     " << l.size() << std::endl;
+        /*std::cout << "l.size():     " << l.size() << std::endl;
         std::cout << "is possible (" << direction << "): " << _expNode->isPossible(direction) 
-        << std::endl;   
+        << std::endl; */  
 
         if ( !(_expNode->isPossible(direction)) ){
             std::cout << std::endl << "NOT GOING IN DIRECTION: " << direction << std::endl;
@@ -175,13 +175,14 @@ bool Handler::expansion2(Node* _expNode){
     
     } // end for
     
-    std::cout << "depth after for:    " << l.back()->getDepth() << std::endl;
+    //std::cout << "depth after for:    " << l.back()->getDepth() << std::endl;
     
     l.remove(_expNode);
     
+    /*
     std::cout << "l.size() after l.remove(_expNode) :    " << l.size() << std::endl;
     std::cout << "nodeRegistry.size() at the end of expansion0: " << nodeRegistry.size() << std::endl;
-
+*/
     return victory;
 } 
 

@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QLCDNumber>
@@ -147,6 +148,7 @@ public:
     QLCDNumber *lcdNumber_3;
     QLabel *testLab;
     QLabel *label_104;
+    QDoubleSpinBox *doubleSpinBox;
     QMenuBar *menubar;
     QToolBar *toolBar;
     QToolBar *toolBar_2;
@@ -711,10 +713,17 @@ public:
         lcdNumber_3->setGeometry(QRect(250, 440, 161, 41));
         testLab = new QLabel(centralwidget);
         testLab->setObjectName(QString::fromUtf8("testLab"));
-        testLab->setGeometry(QRect(480, 390, 67, 17));
+        testLab->setGeometry(QRect(450, 360, 171, 51));
         label_104 = new QLabel(centralwidget);
         label_104->setObjectName(QString::fromUtf8("label_104"));
         label_104->setGeometry(QRect(80, 10, 261, 21));
+        doubleSpinBox = new QDoubleSpinBox(centralwidget);
+        doubleSpinBox->setObjectName(QString::fromUtf8("doubleSpinBox"));
+        doubleSpinBox->setGeometry(QRect(470, 410, 101, 41));
+        doubleSpinBox->setStyleSheet(QString::fromUtf8("font: 20pt \"Ubuntu\";"));
+        doubleSpinBox->setMaximum(99.989999999999995);
+        doubleSpinBox->setSingleStep(0.100000000000000);
+        doubleSpinBox->setValue(0.500000000000000);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -847,8 +856,14 @@ public:
         label_101->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Time [microseconds]:</span></p></body></html>", nullptr));
         label_102->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Depth: </span></p></body></html>", nullptr));
         label_103->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Cost: </span></p></body></html>", nullptr));
-        testLab->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        testLab->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Time lapse[s]:</span></p></body></html>", nullptr));
         label_104->setText(QCoreApplication::translate("MainWindow", "Operators order: up, left, down, right.", nullptr));
+#if QT_CONFIG(tooltip)
+        doubleSpinBox->setToolTip(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\"><br/></p></body></html>", nullptr));
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(whatsthis)
+        doubleSpinBox->setWhatsThis(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\"><br/></p></body></html>", nullptr));
+#endif // QT_CONFIG(whatsthis)
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
         toolBar_2->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar_2", nullptr));
     } // retranslateUi
