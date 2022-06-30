@@ -149,6 +149,8 @@ public:
     QLabel *testLab;
     QLabel *label_104;
     QDoubleSpinBox *doubleSpinBox;
+    QLabel *label_105;
+    QLCDNumber *lcdNumber_4;
     QMenuBar *menubar;
     QToolBar *toolBar;
     QToolBar *toolBar_2;
@@ -157,12 +159,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(703, 536);
+        MainWindow->resize(703, 575);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(30, 60, 311, 241));
+        gridLayoutWidget->setGeometry(QRect(70, 60, 311, 241));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -668,10 +670,10 @@ public:
 
         searchButton = new QPushButton(centralwidget);
         searchButton->setObjectName(QString::fromUtf8("searchButton"));
-        searchButton->setGeometry(QRect(450, 320, 89, 25));
+        searchButton->setGeometry(QRect(500, 320, 89, 25));
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(400, 20, 191, 291));
+        groupBox->setGeometry(QRect(450, 20, 191, 291));
         radioButton = new QRadioButton(groupBox);
         radioButton->setObjectName(QString::fromUtf8("radioButton"));
         radioButton->setGeometry(QRect(10, 80, 171, 23));
@@ -695,35 +697,41 @@ public:
         informedSearch->setGeometry(QRect(10, 190, 131, 21));
         lcdNumber = new QLCDNumber(centralwidget);
         lcdNumber->setObjectName(QString::fromUtf8("lcdNumber"));
-        lcdNumber->setGeometry(QRect(250, 340, 161, 41));
+        lcdNumber->setGeometry(QRect(270, 320, 161, 41));
         label_101 = new QLabel(centralwidget);
         label_101->setObjectName(QString::fromUtf8("label_101"));
-        label_101->setGeometry(QRect(10, 340, 231, 41));
+        label_101->setGeometry(QRect(10, 320, 231, 41));
         label_102 = new QLabel(centralwidget);
         label_102->setObjectName(QString::fromUtf8("label_102"));
-        label_102->setGeometry(QRect(10, 390, 231, 41));
+        label_102->setGeometry(QRect(10, 370, 231, 41));
         lcdNumber_2 = new QLCDNumber(centralwidget);
         lcdNumber_2->setObjectName(QString::fromUtf8("lcdNumber_2"));
-        lcdNumber_2->setGeometry(QRect(250, 390, 161, 41));
+        lcdNumber_2->setGeometry(QRect(270, 370, 161, 41));
         label_103 = new QLabel(centralwidget);
         label_103->setObjectName(QString::fromUtf8("label_103"));
-        label_103->setGeometry(QRect(10, 440, 231, 41));
+        label_103->setGeometry(QRect(10, 420, 231, 41));
         lcdNumber_3 = new QLCDNumber(centralwidget);
         lcdNumber_3->setObjectName(QString::fromUtf8("lcdNumber_3"));
-        lcdNumber_3->setGeometry(QRect(250, 440, 161, 41));
+        lcdNumber_3->setGeometry(QRect(270, 420, 161, 41));
         testLab = new QLabel(centralwidget);
         testLab->setObjectName(QString::fromUtf8("testLab"));
-        testLab->setGeometry(QRect(450, 360, 171, 51));
+        testLab->setGeometry(QRect(480, 360, 171, 51));
         label_104 = new QLabel(centralwidget);
         label_104->setObjectName(QString::fromUtf8("label_104"));
-        label_104->setGeometry(QRect(80, 10, 261, 21));
+        label_104->setGeometry(QRect(100, 30, 261, 21));
         doubleSpinBox = new QDoubleSpinBox(centralwidget);
         doubleSpinBox->setObjectName(QString::fromUtf8("doubleSpinBox"));
-        doubleSpinBox->setGeometry(QRect(470, 410, 101, 41));
+        doubleSpinBox->setGeometry(QRect(510, 410, 101, 41));
         doubleSpinBox->setStyleSheet(QString::fromUtf8("font: 20pt \"Ubuntu\";"));
         doubleSpinBox->setMaximum(99.989999999999995);
         doubleSpinBox->setSingleStep(0.100000000000000);
         doubleSpinBox->setValue(0.500000000000000);
+        label_105 = new QLabel(centralwidget);
+        label_105->setObjectName(QString::fromUtf8("label_105"));
+        label_105->setGeometry(QRect(10, 470, 251, 41));
+        lcdNumber_4 = new QLCDNumber(centralwidget);
+        lcdNumber_4->setObjectName(QString::fromUtf8("lcdNumber_4"));
+        lcdNumber_4->setGeometry(QRect(270, 470, 161, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -864,6 +872,7 @@ public:
 #if QT_CONFIG(whatsthis)
         doubleSpinBox->setWhatsThis(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\"><br/></p></body></html>", nullptr));
 #endif // QT_CONFIG(whatsthis)
+        label_105->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Number of expansions: </span></p></body></html>", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
         toolBar_2->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar_2", nullptr));
     } // retranslateUi

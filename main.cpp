@@ -96,7 +96,7 @@ int main() {
     4 := A* search
     */
 
-    hand.search(2);
+    hand.search(0);
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
     auto timePeriod = std::chrono::duration_cast<std::chrono::microseconds> 

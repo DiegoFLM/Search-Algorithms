@@ -218,8 +218,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     std::string rawPosition;
 
-    std::ifstream mapFile;
-    mapFile.open("map.txt"/*, std::ios::in*/);
+/*    std::ifstream mapFile;
+    mapFile.open("map.txt"//, std::ios::in
+                 );  */
 
     QString qstr;
 
@@ -352,6 +353,9 @@ void MainWindow::on_searchButton_clicked()
 
     ui->lcdNumber_3->setDigitCount(3);
     ui->lcdNumber_3->display( hand.getVicWayNode( hand.getVictorySize() - 1 )->getCost() );
+
+    ui->lcdNumber_4->setDigitCount(8);
+    ui->lcdNumber_4->display( hand.getNumberOfExpansions() );
 
     //std::vector<std::vector <int>> vicMatrixPositions;
     c = 0;

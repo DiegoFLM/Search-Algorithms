@@ -1018,6 +1018,59 @@ mainwindow.o: ../labyrinthGUI/mainwindow.cpp ../labyrinthGUI/mainwindow.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qtimer.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qbasictimer.h \
 		ui_mainwindow.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/QVariant \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QApplication \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qapplication.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qeventloop.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qfuture.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qmutex.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qresultstore.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qfuture_impl.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qthreadpool.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qthread.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qdeadlinetimer.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qrunnable.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qexception.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qpromise.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qguiapplication.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qinputmethod.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qlocale.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qguiapplication_platform.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QDoubleSpinBox \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qspinbox.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qvalidator.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qregularexpression.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QGridLayout \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qlayout.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QGroupBox \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qframe.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QLCDNumber \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qlcdnumber.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QLabel \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qlabel.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qpicture.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qtextdocument.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QMenuBar \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qmenu.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtGui/qaction.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QPushButton \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QRadioButton \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qradiobutton.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QToolBar \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/qtoolbar.h \
+		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtWidgets/QWidget \
 		../labyrinthGUI/Node.h \
 		../labyrinthGUI/Handler.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/QDataStream \
@@ -1030,7 +1083,6 @@ mainwindow.o: ../labyrinthGUI/mainwindow.cpp ../labyrinthGUI/mainwindow.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qfileinfo.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qdatetime.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qcalendar.h \
-		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/qlocale.h \
 		/home/diegoflm/Qt/6.2.4/gcc_64/include/QtCore/QFileInfo
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../labyrinthGUI/mainwindow.cpp
 

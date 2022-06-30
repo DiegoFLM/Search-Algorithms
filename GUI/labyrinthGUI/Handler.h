@@ -30,13 +30,16 @@ class Handler{
         int victorysize;
         std::chrono::microseconds solutionTime;
 
+        int numberOfExpansions;
+
 
     public:
         Handler(Node rootNode);
         Handler(Node fn, int _initialRobotPosition[2], int _shipsFuel[2], bool _foundItems[2],
                     bool _drivingShip[2]);
         bool expansion0(Node* expNode); //best for breadthFirstSearch.
-        bool expansion2(Node* expNode);  //best for depthFirstSearch.
+        bool expansion1(Node* expNode); //best for uniformCostSearch.
+        bool expansion2(Node* expNode);  //best for depthFirstSearch & greedySearch.
         bool expansion3(Node* _expNode); //best for A*
         void search(int mode);
         void breadthFirstSearch();
@@ -56,6 +59,8 @@ class Handler{
 
         int getRobotsPosition0(int posNode);
         int getRobotsPosition1(int posNode);
+
+        int getNumberOfExpansions();
 };
 
 #else
