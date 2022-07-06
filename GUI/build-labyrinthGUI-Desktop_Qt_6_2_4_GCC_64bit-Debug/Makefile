@@ -61,10 +61,13 @@ OBJECTS       = Handler.o \
 		main.o \
 		mainwindow.o \
 		moc_mainwindow.o
-DIST          = ../labyrinthGUI/map.txt \
+DIST          = ../labyrinthGUI/BrickWall.png \
+		../labyrinthGUI/lava.png \
+		../labyrinthGUI/map.txt \
 		../labyrinthGUI/map.txt \
 		../labyrinthGUI/rs1.png \
 		../labyrinthGUI/rs2.png \
+		../labyrinthGUI/spaceShip.png \
 		../labyrinthGUI/terminator.png \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/diegoflm/Qt/6.2.4/gcc_64/mkspecs/common/unix.conf \

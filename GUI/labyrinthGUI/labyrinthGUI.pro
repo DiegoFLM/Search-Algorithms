@@ -30,8 +30,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    BrickWall.png \
+    lava.png \
     map.txt \
     map.txt \
     rs1.png \
     rs2.png \
+    spaceShip.png \
     terminator.png

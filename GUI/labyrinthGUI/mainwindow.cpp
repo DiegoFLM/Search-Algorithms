@@ -242,7 +242,20 @@ MainWindow::MainWindow(QWidget *parent)
 
         for (int c = 0; c < 10; c++){
 
-            labelsList[r][c]->setText( fields[c] );
+            if(fields[c].toInt() == 1){
+                labelsList[r][c]
+                        ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/BrickWall.png") );
+
+            }else if(fields[c].toInt() == 3 || fields[c].toInt() == 4 ){
+                labelsList[r][c]
+                        ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/spaceShip.png") );
+            }else if(fields[c].toInt() == 6 ){
+                labelsList[r][c]
+                        ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/lava.png") );
+            } else{
+                labelsList[r][c]->setText( fields[c] );
+            }
+
             readMap[r][c] = fields[c].toInt();
         }
     }
@@ -307,7 +320,18 @@ void MainWindow::on_searchButton_clicked()
 {
     for (int row = 0; row < 10; row++){
         for (int col = 0; col < 10; col++){
-            labelsList[row][col]->setText( QString::number(readMap[row][col]) );
+            if(readMap[row][col] == 1){
+                labelsList[row][col]
+                        ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/BrickWall.png") );
+            }else if( ( readMap[row][col] == 3 ) || ( readMap[row][col] == 4 )){
+                labelsList[row][col]
+                        ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/spaceShip.png") );
+            }else if( readMap[row][col] == 6 ){
+                labelsList[row][col]
+                        ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/lava.png") );
+            }else {
+                labelsList[row][col]->setText( QString::number(readMap[row][col]) );
+            }
         }
     }
 
@@ -381,19 +405,24 @@ void MainWindow::onTimeEnd()
 {
     timeLapse->setInterval( (ui->doubleSpinBox->value()) * 1000 );
 
-
-    if (c == 0){
+    //c is a counter for steps in the solution way.
+    if (c == 0){ //put Terminator face
         labelsList[initialRobotsPosition[0]][initialRobotsPosition[1]]
                 ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/terminator.png") );
 
         c++;
     }else if( c < vicMatrixPositions.size() ){
-        labelsList[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]
-                ->setText( QString::number(readMap[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]) );
-        //labelsList[vicMatrixPositions.at(c).at(0)][vicMatrixPositions.at(c).at(1)]->setText( "9" );
+
+        if(readMap[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)] == 6){
+            labelsList[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]
+                ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/lava.png") );
+        }else {
+            labelsList[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]
+                    ->setText( QString::number(readMap[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]) );
+        }
+
         labelsList[vicMatrixPositions.at(c).at(0)][vicMatrixPositions.at(c).at(1)]
                 ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/terminator.png") );
-                //->setPixmap( QPixmap("/home/diegoflm/Pictures/rs1.png") );
 
         labelsList[vicMatrixPositions.at(c).at(0)][vicMatrixPositions.at(c).at(1)]->show();
         c++;
