@@ -7,11 +7,11 @@
 
 Node::Node(Node * _father, int _motherOp, int _depth, int _cost, int _robotsPosition[2], 
             int _shipsFuel[2], bool _foundItems[2], bool _usingShip[2]):
-            father(_father), motherOp(_motherOp), depth(_depth), cost(_cost) /*,
+            father(_father), motherOp(_motherOp), depth(_depth), cost(_cost) /* ,
             robotsPosition({_robotsPosition[0], _robotsPosition[1]}),
             shipsFuel({_shipsFuel[0], _shipsFuel[1]}),
             foundItems({_foundItems[0], _foundItems[1]}), 
-            usingShip({_usingShip[0], _usingShip[1]}) */{
+            usingShip({_usingShip[0], _usingShip[1]}) */ {
 
                 robotsPosition[0] = _robotsPosition[0];
                 robotsPosition[1] = _robotsPosition[1];
@@ -374,21 +374,20 @@ int Node::h(){
             h = distToItem1 + distBetweenItems;
 
         return h;
-    } else if (foundItems[0]){ //first item already found
+    } else if (foundItems[0] && !foundItems[1]){ //first item already found
         distToItem1 = std::abs(itemPositions[1][0] - robotsPosition[0])
             + std::abs(itemPositions[1][1] - robotsPosition[1]);
         
         h = distToItem1;
         return h;
-    } else { // second item already found
+    } else if (!foundItems[0] && foundItems[1]) { // second item already found
         distToItem0 = std::abs(itemPositions[0][0] - robotsPosition[0])
             + std::abs(itemPositions[0][1] - robotsPosition[1]);
         
         h = distToItem0;
         return h;
     } 
-
-    std::cout << "h() OF A VICTORY NODE:" << std::endl;
+    //Victory node:
     return 0;
 }
 

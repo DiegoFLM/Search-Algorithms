@@ -374,21 +374,20 @@ int Node::h(){
             h = distToItem1 + distBetweenItems;
 
         return h;
-    } else if (foundItems[0]){ //first item already found
+    } else if (foundItems[0] && !foundItems[1]){ //first item already found
         distToItem1 = std::abs(itemPositions[1][0] - robotsPosition[0])
             + std::abs(itemPositions[1][1] - robotsPosition[1]);
         
         h = distToItem1;
         return h;
-    } else { // second item already found
+    } else if (!foundItems[0] && foundItems[1]) { // second item already found
         distToItem0 = std::abs(itemPositions[0][0] - robotsPosition[0])
             + std::abs(itemPositions[0][1] - robotsPosition[1]);
         
         h = distToItem0;
         return h;
     } 
-
-    std::cout << "h() OF A VICTORY NODE:" << std::endl;
+    //Victory node:
     return 0;
 }
 

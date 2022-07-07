@@ -8,7 +8,6 @@
 
 int const L = 10;
 
-
 /*
 0 si es una casilla libre
 1 si es un muro
@@ -42,7 +41,8 @@ int main() {
 
     std::ifstream mapFile;
     mapFile.open("map.txt"/*, std::ios::in*/);
-    
+
+
     int readMap[L][L];
     int initialRobotsPosition[2];
 
@@ -58,31 +58,24 @@ int main() {
         }
     }
 
-    int shipsFuel [2];//= {10, 20}; 
+    int shipsFuel [2];
     shipsFuel[0] = 10;
     shipsFuel[1] = 20;
     bool foundItems[2] = {false, false};
     bool drivingShip[2] = {false, false};
-    //int itemPositions[2][2] = {{0, 5},{9, 9}};
 
     Node nod((Node *)nullptr, -1, 0, 0, initialRobotsPosition, shipsFuel, foundItems,  
             drivingShip);
 
-    //nod.setMap(map);
     nod.setMap(readMap);
-    //nod.getDepth();
     
-    //std::cout << "nod.h() = " << nod.h() << std::endl;
-    //nod.showMap();
 
     std::cout << std::endl << std::endl;
-
     /*movement number: 
     0 := up
     1 := left
     2 := down
     3 := right*/
-    //std::cout << "nos.ispossible(int op):  " << nod.isPossible(3) << std::endl << std::endl;
 
     Handler hand = Handler(nod);    
 
@@ -95,7 +88,6 @@ int main() {
     3 := Greedy search
     4 := A* search
     */
-
     hand.search(0);
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
@@ -125,20 +117,6 @@ void printMap(int mappa[L][L]){
         std::cout << std::endl;
     }
 }
-
-/*
-int * getLocation (int map[L][L]){
-    int loc [2];
-    for (int row = 0; row < L; row++){
-        for (int column = 0; column < L; column++){
-            if(map[row][column] == 2){
-                loc[0] = row;
-                loc[1] = column;
-            }
-        }
-    }
-    return (int *)loc;
-}*/
 
 
 void showlist(std::list<int> g){
