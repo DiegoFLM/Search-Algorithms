@@ -42,7 +42,6 @@ int main() {
     std::ifstream mapFile;
     mapFile.open("map.txt"/*, std::ios::in*/);
 
-
     int readMap[L][L];
     int initialRobotsPosition[2];
 
@@ -88,7 +87,7 @@ int main() {
     3 := Greedy search
     4 := A* search
     */
-    hand.search(0);
+    hand.search(4);
 
     auto timePoint2 = std::chrono::high_resolution_clock::now();
     auto timePeriod = std::chrono::duration_cast<std::chrono::microseconds> 

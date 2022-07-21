@@ -41,6 +41,7 @@ Handler::Handler(Node fn, int _initialRobotPosition[2], int _shipsFuel[2], bool 
 
 /*Node expansion for breadthFirstSearch
     expansion0 avoids going back regardless of wether a ship is being used or not. 
+    Only going back when taking an item
     Doesn't avoid cycles. */
 bool Handler::expansion0(Node* _node){
 
@@ -91,7 +92,8 @@ bool Handler::expansion0(Node* _node){
 
 
 //Node expansion for uniformCostSearch
-//expansion1 avoids going back unless using or leaving a ship or taking an item. Doesn't avoid cycles.
+//expansion1 avoids going back unless taking or leaving a ship or taking an item. Doesn't avoid cycles.
+//Ideally, it would be able to go back when using or leaving a ship, but it takes too much time.
 bool Handler::expansion1(Node* _node){
 
     numberOfExpansions++;
@@ -124,14 +126,13 @@ bool Handler::expansion1(Node* _node){
                 && ( _node->getFoundItems1() == (_node->getFather())->getFoundItems1() )
                 && ( std::abs(direction - _node->getMotherOp()) == 2 ) 
 
-                //Las comparaciones comentadas son las correctas, pero el tiempo de ejecución
-                //crece demasiado.
+                //Commented comparisons are the ideal, but execution time grows too much.
                 // && ( _node->getUsingShip0() == 0 && _node->getUsingShip1() == 0 )
                 // && ( _node->getFather()->getUsingShip0() == 0 && _node->getFather()->getUsingShip1() == 0 )
                 && ( _node->getUsingShip0() == _node->getFather()->getUsingShip0() )
                 && ( _node->getUsingShip1() == _node->getFather()->getUsingShip1() )
                 ) {
-                std::cout << "NOT GOING BACK UNLESS USING OR LEAVING A SHIP OR TAKING AN ITEM!!" << std::endl;
+                std::cout << "NOT GOING BACK UNLESS TAKING OR LEAVING A SHIP OR TAKING AN ITEM!!" << std::endl;
                 continue; 
             }
         }
@@ -183,7 +184,6 @@ bool Handler::expansion2(Node* _expNode){
                 std::cout << "***AVOIDING CYCLES WORKING***" << std::endl;
                 
                 numberOfExpansions--;
-
                 l.remove(_expNode);
                 return victory;
             }
@@ -266,8 +266,12 @@ bool Handler::expansion3(Node* _expNode){
             if ( (_expNode->getFoundItems0() == (_expNode->getFather())->getFoundItems0())
                 && (_expNode->getFoundItems1() == (_expNode->getFather())->getFoundItems1())
                 && ( std::abs(direction - _expNode->getMotherOp()) == 2 ) 
-                && ( _expNode->getUsingShip0() == 0 && _expNode->getUsingShip1() == 0 )
-                && ( _expNode->getFather()->getUsingShip0() == 0 && _expNode->getFather()->getUsingShip1() == 0 )
+                //&& ( _expNode->getUsingShip0() == 0 && _expNode->getUsingShip1() == 0 )
+                //&& ( _expNode->getFather()->getUsingShip0() == 0 && _expNode->getFather()->getUsingShip1() == 0 )
+
+                && ( _expNode->getUsingShip0() == _expNode->getFather()->getUsingShip0() )
+                && ( _expNode->getUsingShip1() == _expNode->getFather()->getUsingShip1() )
+
                 ) {
                 std::cout << "NOT GOING BACK UNLESS USING OR LEAVING A SHIP OR TAKING AN ITEM" << std::endl;
                 continue;   

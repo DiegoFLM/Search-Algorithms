@@ -225,7 +225,7 @@ MainWindow::MainWindow(QWidget *parent)
     QString qstr;
 
 
-    QFile qfile_map("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/map.txt");
+    QFile qfile_map("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/Pruebax5.txt");
 
 
     qfile_map.open(QIODevice::ReadOnly /*| QIODevice::Text*/);
@@ -416,7 +416,13 @@ void MainWindow::onTimeEnd()
         if(readMap[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)] == 6){
             labelsList[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]
                 ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/lava.png") );
-        }else {
+        }/*else if(readMap[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)] == 3 && (shipsFuel[0] == 10) && !(drivingShip[0])){
+            labelsList[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]
+                ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/spaceShip.png") );
+        }else if(readMap[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)] == 4 && (shipsFuel[1] == 20) && !(drivingShip[1])){
+            labelsList[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]
+                ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/spaceShip.png") );
+        }*/else {
             labelsList[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]
                     ->setText( QString::number(readMap[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]) );
         }
@@ -424,6 +430,7 @@ void MainWindow::onTimeEnd()
         labelsList[vicMatrixPositions.at(c).at(0)][vicMatrixPositions.at(c).at(1)]
                 ->setPixmap( QPixmap("/home/diegoflm/Documents/VU/IngSistemas/MateriasYTemas/Semestre6/AI/Project/pCode/GUI/labyrinthGUI/terminator.png") );
 
+        //labelsList[vicMatrixPositions.at(c - 1).at(0)][vicMatrixPositions.at(c - 1).at(1)]->show();
         labelsList[vicMatrixPositions.at(c).at(0)][vicMatrixPositions.at(c).at(1)]->show();
         c++;
     }

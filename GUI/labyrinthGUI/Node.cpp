@@ -258,25 +258,25 @@ Node Node::partialExpansion (int op){
 
     if (usingShip[0]){
         sonsShipsFuel[0] = shipsFuel[0] - 1;
-        if (sonsShipsFuel[0] == 0){
+        if (sonsShipsFuel[0] <= 0){
             sonsUsingShip[0] = false;
         }
     }
     if (usingShip[1]){
         sonsShipsFuel[1] = shipsFuel[1] - 1;
-        if (sonsShipsFuel[1] == 0){
+        if (sonsShipsFuel[1] <= 0){
             sonsUsingShip[1] = false;
         }
     }
 
     //Getting ship1?
-    if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 3 && shipsFuel[0] > 0 
-        && !usingShip[1]){
+    if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 3 && sonsShipsFuel[0] > 0
+        && !sonsUsingShip[1]){
         sonsUsingShip[0] = true;
 
     //Getting ship2?
-    }else if (map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 4 && shipsFuel[1] > 0
-        && !usingShip[0]){
+    }else if ( map[sonsRobotsPosition[0]][sonsRobotsPosition[1]] == 4 && sonsShipsFuel[1] > 0
+        && !sonsUsingShip[0] ){
         sonsUsingShip[1] = true;
     }
 
